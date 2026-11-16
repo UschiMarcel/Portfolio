@@ -12,28 +12,44 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/index/01.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/index/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/index/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/index/03.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/index/04.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
-    "t": "img",
-    "src": "bilder/index/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/05.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/06.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/index/05.jpg",
+       "w": 24.6
+      },
+      {
+       "src": "bilder/index/06.jpg",
+       "w": 24.6
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -51,20 +67,34 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/index/07.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/index/07.jpg",
+       "w": 31
+      },
+      {
+       "src": "bilder/index/08.jpg",
+       "w": 28.5
+      },
+      {
+       "src": "bilder/index/09.jpg",
+       "w": 39.3
+      }
+     ]
+    ]
    },
    {
-    "t": "img",
-    "src": "bilder/index/08.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/09.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/index/10.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/index/10.jpg",
+       "w": 31.8
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -74,8 +104,15 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/index/11.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/index/11.jpg",
+       "w": 31.8
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -109,28 +146,39 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/yat-kha/01.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/05.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/06.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/yat-kha/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/yat-kha/03.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/04.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/yat-kha/05.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/06.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -139,24 +187,35 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/yat-kha/07.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/08.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/09.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/10.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/11.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/yat-kha/07.jpg",
+       "w": 63.7
+      },
+      {
+       "src": "bilder/yat-kha/08.jpg",
+       "w": 35.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/yat-kha/09.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/10.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/yat-kha/11.jpg",
+       "w": 100
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -167,20 +226,29 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/yat-kha/12.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/13.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/14.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/yat-kha/15.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/yat-kha/12.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/13.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/yat-kha/14.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/yat-kha/15.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    }
   ]
  },
@@ -208,32 +276,41 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/skola/01.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/05.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/06.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/07.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/skola/01.jpg",
+       "w": 24.5
+      },
+      {
+       "src": "bilder/skola/02.jpg",
+       "w": 24.5
+      },
+      {
+       "src": "bilder/skola/03.jpg",
+       "w": 24.6
+      },
+      {
+       "src": "bilder/skola/04.jpg",
+       "w": 24.5
+      }
+     ],
+     [
+      {
+       "src": "bilder/skola/05.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/skola/06.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/skola/07.jpg",
+       "w": 32.9
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -242,36 +319,45 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/skola/08.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/09.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/10.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/11.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/12.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/13.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/14.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/skola/15.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/skola/08.jpg",
+       "w": 19.5
+      },
+      {
+       "src": "bilder/skola/09.jpg",
+       "w": 19.5
+      },
+      {
+       "src": "bilder/skola/10.jpg",
+       "w": 19.5
+      },
+      {
+       "src": "bilder/skola/11.jpg",
+       "w": 19.5
+      },
+      {
+       "src": "bilder/skola/12.jpg",
+       "w": 19.5
+      }
+     ],
+     [
+      {
+       "src": "bilder/skola/13.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/skola/14.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/skola/15.jpg",
+       "w": 32.9
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -330,8 +416,15 @@ window.ARBEITEN_INHALT = {
   "cover": "bilder/hensyn-we-know/cover.jpg",
   "blocks": [
    {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/01.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/hensyn-we-know/01.png",
+       "w": 26.4
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -351,28 +444,39 @@ window.ARBEITEN_INHALT = {
     "src": "https://www.youtube.com/embed/-U398gwvfuU"
    },
    {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/05.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/06.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/hensyn-we-know/07.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/hensyn-we-know/02.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/hensyn-we-know/03.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/hensyn-we-know/04.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/hensyn-we-know/05.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/hensyn-we-know/06.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/hensyn-we-know/07.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -454,20 +558,29 @@ window.ARBEITEN_INHALT = {
   "cover": "bilder/ooh-gott/cover.jpg",
   "blocks": [
    {
-    "t": "img",
-    "src": "bilder/ooh-gott/01.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/ooh-gott/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/ooh-gott/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/ooh-gott/04.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/ooh-gott/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/ooh-gott/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/ooh-gott/03.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/ooh-gott/04.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -477,8 +590,15 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/ooh-gott/05.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/ooh-gott/05.png",
+       "w": 47.2
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -487,8 +607,15 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/ooh-gott/06.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/ooh-gott/06.png",
+       "w": 47.2
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -497,8 +624,15 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/ooh-gott/07.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/ooh-gott/07.png",
+       "w": 47.2
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -507,8 +641,15 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/ooh-gott/08.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/ooh-gott/08.png",
+       "w": 47.2
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -529,20 +670,29 @@ window.ARBEITEN_INHALT = {
   "cover": "bilder/taboo/cover.jpg",
   "blocks": [
    {
-    "t": "img",
-    "src": "bilder/taboo/01.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/taboo/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/taboo/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/taboo/04.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/taboo/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/taboo/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/taboo/03.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/taboo/04.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -582,48 +732,66 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/01.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/leichte-sprache/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/03.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/leichte-sprache/04.jpg",
+       "w": 49.7
+      }
+     ]
+    ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/03.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/05.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/06.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/07.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/08.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/09.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/10.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/11.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/05.png",
+       "w": 11
+      },
+      {
+       "src": "bilder/leichte-sprache/06.png",
+       "w": 11
+      },
+      {
+       "src": "bilder/leichte-sprache/07.png",
+       "w": 11
+      },
+      {
+       "src": "bilder/leichte-sprache/08.png",
+       "w": 11
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/09.png",
+       "w": 14.8
+      },
+      {
+       "src": "bilder/leichte-sprache/10.png",
+       "w": 14.8
+      },
+      {
+       "src": "bilder/leichte-sprache/11.png",
+       "w": 14.8
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -637,36 +805,45 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/12.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/13.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/14.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/15.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/16.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/17.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/18.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/19.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/12.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/13.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/14.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/15.png",
+       "w": 10.6
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/16.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/17.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/18.png",
+       "w": 10.6
+      },
+      {
+       "src": "bilder/leichte-sprache/19.png",
+       "w": 10.6
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -677,36 +854,45 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/20.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/21.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/22.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/23.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/24.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/25.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/26.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/27.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/20.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/21.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/22.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/23.png",
+       "w": 12
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/24.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/25.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/26.png",
+       "w": 12
+      },
+      {
+       "src": "bilder/leichte-sprache/27.png",
+       "w": 12
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -719,12 +905,19 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/28.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/29.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/28.png",
+       "w": 24.3
+      },
+      {
+       "src": "bilder/leichte-sprache/29.png",
+       "w": 24.3
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -742,12 +935,21 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/30.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/31.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/30.png",
+       "w": 29.3
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/31.png",
+       "w": 29.3
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -777,28 +979,37 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/leichte-sprache/32.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/33.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/34.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/35.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/36.png"
-   },
-   {
-    "t": "img",
-    "src": "bilder/leichte-sprache/37.png"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/leichte-sprache/32.png",
+       "w": 15.3
+      },
+      {
+       "src": "bilder/leichte-sprache/33.png",
+       "w": 15.3
+      },
+      {
+       "src": "bilder/leichte-sprache/34.png",
+       "w": 15.3
+      }
+     ],
+     [
+      {
+       "src": "bilder/leichte-sprache/35.png",
+       "w": 15.3
+      },
+      {
+       "src": "bilder/leichte-sprache/36.png",
+       "w": 15.3
+      },
+      {
+       "src": "bilder/leichte-sprache/37.png",
+       "w": 15.3
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -838,16 +1049,25 @@ window.ARBEITEN_INHALT = {
   "cover": "bilder/shoegloves/cover.jpg",
   "blocks": [
    {
-    "t": "img",
-    "src": "bilder/shoegloves/01.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/shoegloves/02.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/shoegloves/03.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/shoegloves/01.jpg",
+       "w": 49.7
+      },
+      {
+       "src": "bilder/shoegloves/02.jpg",
+       "w": 49.7
+      }
+     ],
+     [
+      {
+       "src": "bilder/shoegloves/03.jpg",
+       "w": 100
+      }
+     ]
+    ]
    },
    {
     "t": "text",
@@ -857,16 +1077,23 @@ window.ARBEITEN_INHALT = {
     ]
    },
    {
-    "t": "img",
-    "src": "bilder/shoegloves/04.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/shoegloves/05.jpg"
-   },
-   {
-    "t": "img",
-    "src": "bilder/shoegloves/06.jpg"
+    "t": "grid",
+    "rows": [
+     [
+      {
+       "src": "bilder/shoegloves/04.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/shoegloves/05.jpg",
+       "w": 32.9
+      },
+      {
+       "src": "bilder/shoegloves/06.jpg",
+       "w": 32.9
+      }
+     ]
+    ]
    }
   ]
  }

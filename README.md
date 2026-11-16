@@ -27,7 +27,8 @@ Dann http://localhost:8000 öffnen.
 
 - Kachel (Titel, Untertitel, Bereiche, Kontext): oben in `index.html` im Block `ARBEITEN`
 - Detailseite (Texte, Bilder, Videos): `arbeiten.js`. Blöcke: `{"t":"text","p":["Absatz"]}`, `{"t":"img","src":"bilder/…"}`, `{"t":"embed","src":"https://…"}`
-- Mehrere Bilder hintereinander werden automatisch als Raster gezeigt.
+- Bildmodule wie im alten Portfolio: `{"t":"grid","rows":[[{"src":"bilder/…","w":49.7},{"src":"…","w":49.7}]]}`. `w` ist die Breite in Prozent, jede Zeile wird mittig gesetzt.
+- Kunden-Kacheln zeigen ein Standbild mit 40 % Deckkraft und den Firmennamen. Beim Hovern läuft die Animation. Ein Logo kann pro Projekt im Feld `logo` hinterlegt werden.
 
 ## Kundenbereich
 

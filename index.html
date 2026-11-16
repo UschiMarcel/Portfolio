@@ -208,6 +208,34 @@ dialog#lb.full .lbstage img{max-width:none;max-height:none}
 @media (max-width:1100px){ .dgrid{grid-template-columns:minmax(0,1fr)} .stick{position:static} .imgs.c3{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){ .imgs.c2,.imgs.c3{grid-template-columns:minmax(0,1fr)} .emb{aspect-ratio:4/5} }
 
+
+/* ---------- Kunden-Kacheln ---------- */
+.kcov img.kstill,.kcov img.kanim{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kcov img.kstill{opacity:.4;filter:grayscale(.2);transition:opacity .15s,filter .15s}
+.kcov .kover{position:absolute;inset:0;display:grid;place-items:center;padding:22px;transition:opacity .15s}
+.kcov .kname{font-weight:850;font-size:clamp(26px,2.6vw,40px);letter-spacing:-.045em;line-height:.95;text-align:center;color:var(--ink)}
+.kcov .klogo{max-width:62%;max-height:46%;object-fit:contain;display:block}
+.kcov .klogo img{max-width:100%;max-height:100%;display:block}
+.tile.playing .kcov img.kstill{opacity:1;filter:none}
+.tile.playing .kcov .kover{opacity:0}
+.tile:hover .kcov img.kstill{opacity:1;filter:none}
+.tile:hover .kcov .kover{opacity:0}
+
+
+/* ---------- Bildmodule wie im Original ---------- */
+.mod{padding:22px;display:flex;flex-direction:column;gap:8px;max-width:1240px}
+.mrow{display:flex;gap:8px;justify-content:center;align-items:flex-start}
+.mrow figure{margin:0;flex:none;min-width:0}
+.mrow figure:only-child{margin-inline:auto}
+.mrow .zoom img{width:100%;height:auto;display:block}
+.mrow .zoom .media{min-height:120px;background:var(--paper-2)}
+.mrow .zoom .media.done{min-height:0;background:none}
+@media (max-width:760px){
+  .mrow{flex-wrap:wrap}
+  .mrow figure{width:calc(50% - 4px)!important}
+  .mrow figure:only-child{width:100%!important}
+}
+
 /* ---------- Breakpoints ---------- */
 @media (max-width:1100px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -413,7 +441,7 @@ function tiles(list, kind){
     const tags = (p.bereiche||[]).map(b=>`<span class="tag ${BEREICH_FARBE[b]||""}">${esc(b)}</span>`).join("");
     const ph = p.platzhalter ? `<span class="tag" style="border-style:dashed">Platzhalter</span>` : "";
     return `<a class="tile" href="#${kind}/${esc(p.slug)}">
-      ${cov && typeof cov==="object" ? encBox(cov, n-1, p.titel) : mediaBox(cov, n-1, cov||"kein Bild hinterlegt", p.titel)}
+      ${kind==="kunden" ? kCover(p, n-1) : mediaBox(cov, n-1, cov||"kein Bild hinterlegt", p.titel)}
       <div class="cap"><span class="num">${pad(n)}</span><span class="tags">${tags}${ph}${p.kunde?`<span class="tag ink">${esc(p.kunde)}</span>`:""}</span></div>
       <h3>${esc(p.titel)}</h3>
       <p>${esc(p.untertitel)}</p>
@@ -454,6 +482,7 @@ function blocksHTML(p){
   (p.blocks||[]).forEach(b => {
     if (b.t==="img"){ run.push({src:b.src, i:n++}); return; }
     flush();
+    if (b.t==="grid"){ out.push(`<div class="mod">${b.rows.map(r=>`<div class="mrow">${r.map(x=>{const i=n++; return `<figure style="width:${x.w}%">${imgHTML(x.src, i, `${p.titel} – Bild ${i+1}`)}</figure>`;}).join("")}</div>`).join("")}</div>`); return; }
     if (b.t==="text") out.push(`<div class="txt">${b.p.map(x=>`<p>${x}</p>`).join("")}</div>`);
     else if (b.t==="credits") out.push(`<div class="txt"><dl class="credits">${b.groups.map(g=>`${g.h?`<dt class="ch">${esc(g.h)}</dt>`:""}${g.rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}`).join("")}</dl></div>`);
     else if (b.t==="embed"){ const [art,anb] = EMBED_INFO(b.src);
@@ -471,7 +500,8 @@ function viewDetail(kind, slug){
   const p = list[i], prev = list[(i-1+list.length)%list.length], next = list[(i+1)%list.length];
   const back = kind==="arbeiten" ? "Alle Arbeiten" : "Alle Kundenprojekte";
   const tags = (p.bereiche||[]).map(b=>`<span class="tag ${BEREICH_FARBE[b]||""}">${esc(b)}</span>`).join("");
-  const nImg = (p.blocks||[]).filter(b=>b.t==="img").length, nEmb = (p.blocks||[]).filter(b=>b.t==="embed").length;
+  const allImgs = (p.blocks||[]).flatMap(b => b.t==="img" ? [b.src] : b.t==="grid" ? b.rows.flat().map(x=>x.src) : []);
+  const nImg = allImgs.length, nEmb = (p.blocks||[]).filter(b=>b.t==="embed").length;
   const meta = [
     p.kunde && ["Kunde", p.kunde],
     p.kontext && ["Kontext", p.kontext],
@@ -479,7 +509,7 @@ function viewDetail(kind, slug){
     p.disziplinen?.length && ["Disziplinen", p.disziplinen.join(" · ")],
     ["Umfang", [nImg && `${nImg} ${nImg===1?"Bild":"Bilder"}`, nEmb && `${nEmb} ${nEmb===1?"Einbettung":"Einbettungen"}`].filter(Boolean).join(" · ") || "–"]
   ].filter(Boolean);
-  currentImgs = (p.blocks||[]).filter(b=>b.t==="img").map(b=>b.src);
+  currentImgs = allImgs;
   currentTitle = p.titel;
   return `<div class="dhead">
       <a class="linkbtn" href="#${kind}">← ${back}</a>
@@ -503,6 +533,39 @@ function viewDetail(kind, slug){
     </nav>`;
 }
 let currentImgs = [], currentTitle = "";
+
+/* ---------- Kunden-Kachel: Standbild + Firmenname, Animation nur beim Hovern ---------- */
+function kCover(p, i){
+  const st = p.still || p.cover, an = p.cover && p.cover.t==="image/gif" ? p.cover : null;
+  const logo = p.logo ? (typeof p.logo==="object" ? `<span class="klogo enc-logo" data-f="${esc(p.logo.f)}" data-t="${esc(p.logo.t)}"></span>` : `<img class="klogo" src="${esc(p.logo)}" alt="">`) : `<span class="kname">${esc(p.kunde||p.titel)}</span>`;
+  return `<div class="media kcov"${st?` data-sf="${esc(st.f)}" data-st="${esc(st.t)}"`:""}${an?` data-af="${esc(an.f)}" data-at="${esc(an.t)}"`:""}>
+    ${placeholder(i, st ? "verschlüsselt · lädt …" : "kein Bild hinterlegt")}
+    <img class="kstill" alt="" hidden><img class="kanim" alt="" hidden>
+    <div class="kover" aria-hidden="true">${logo}</div></div>`;
+}
+const kObs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ kObs.unobserve(e.target); loadKStill(e.target); } }), {rootMargin:"400px"}) : null;
+async function loadKStill(el){
+  if (!el.dataset.sf) return;
+  try{
+    const im = el.querySelector(".kstill"); im.src = await decryptFile({f:el.dataset.sf, t:el.dataset.st}); im.hidden = false;
+    el.querySelector(".ph").hidden = true;
+  }catch(e){ const l=el.querySelector(".lbl i"); if(l) l.textContent = location.protocol==="file:" ? "lädt nur über einen Webserver" : "konnte nicht geladen werden"; }
+  const lg = el.querySelector(".enc-logo");
+  if (lg) try{ lg.innerHTML = `<img src="${await decryptFile({f:lg.dataset.f,t:lg.dataset.t})}" alt="">`; }catch(e){}
+}
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+function wireKTiles(){
+  document.querySelectorAll(".media.kcov").forEach(el => {
+    kObs ? kObs.observe(el) : loadKStill(el);
+    const tile = el.closest(".tile"); if (!tile || !el.dataset.af) return;
+    const an = el.querySelector(".kanim");
+    const on = async () => { if (reduceMotion.matches) return; tile.classList.add("playing");
+      try{ const u = await decryptFile({f:el.dataset.af, t:el.dataset.at}); if (tile.classList.contains("playing")){ an.src = u; an.hidden = false; } }catch(e){} };
+    const off = () => { tile.classList.remove("playing"); an.hidden = true; an.removeAttribute("src"); };
+    tile.addEventListener("mouseenter", on); tile.addEventListener("mouseleave", off);
+    tile.addEventListener("focus", on); tile.addEventListener("blur", off);
+  });
+}
 
 /* ---------- Verschlüsselte Kundenbilder ---------- */
 const encCache = new Map();
@@ -758,6 +821,7 @@ async function route(){
   const v = $("view"); v.innerHTML = html;
   document.title = `${({arbeiten:"Arbeiten",kunden:"Agentur Kunden",tools:TOOLS_NAME,"ueber-mich":"Über mich",kontakt:"Kontakt"})[sec]||"Portfolio"} – Marcel Rittau`;
   wireEnc();
+  wireKTiles();
   wire();
 }
 function focusHead(){ const hh=$("h-main"); if(hh){ hh.focus({preventScroll:true}); } }
