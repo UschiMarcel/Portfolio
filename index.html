@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcel Rittau – Portfolio</title>
+<meta name="description" content="Hallöchen :) Schön, dass ihr mich gefunden habt! Ich bin Marcel Rittau, Grafikdesigner aus Köln. Hier gibt es einen Einblick in meine Arbeiten.">
+<meta name="author" content="Marcel Rittau">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23151412'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23CDF443'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F3EEE3; --paper-2:#E9E2D2; --paper-3:#DED5C1; --field:#FBF8F1;
+  --ink:#151412; --ink-2:#4A463E; --ink-3:#6E685C;
+  --lime:#CDF443; --lav:#BCA9F7; --pink:#FFA6D0; --orange:#FF6B1A;
+  --err:#8A1500; --err-bg:#FFD9E9; --ok:#1F5A00;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --rule:1px solid var(--ink);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--lime)}
+[tabindex="-1"]:focus{outline:none;box-shadow:none}
+h1{margin:0;font-size:clamp(38px,4.4vw,64px);line-height:.86;font-weight:850;letter-spacing:-.055em}
+h2{margin:0;font-size:26px;line-height:1;font-weight:800;letter-spacing:-.035em}
+h3{margin:0;font-size:21px;line-height:1.05;font-weight:800;letter-spacing:-.03em}
+p{margin:0}
+.display{font-size:clamp(28px,3.4vw,42px);line-height:.95;font-weight:850;letter-spacing:-.045em;margin:0}
+.hint{margin:6px 0 0;font-size:13px;color:var(--ink-2)}
+.subhead{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.sec-n{font:700 12px/1 var(--mono);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);flex:none}
+.mono{font-family:var(--mono)}
+.skip{position:absolute;left:-999px;top:8px;z-index:20;background:var(--lime);padding:8px 12px;border:var(--rule);border-radius:99px}
+.skip:focus{left:8px}
+
+.btn{appearance:none;border:var(--rule);background:var(--paper);border-radius:99px;padding:9px 16px;font:650 14px/1.1 var(--sans);color:var(--ink);cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s}
+.btn:hover:not(:disabled){background:var(--paper-2)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover:not(:disabled){background:#2c2a26}
+.btn.lime{background:var(--lime)} .btn.lime:hover:not(:disabled){background:#BCE52E}
+.btn.small{padding:5px 10px;font-size:12.5px}
+.btn:disabled,.btn[aria-disabled=true]{opacity:.42;cursor:not-allowed}
+.linkbtn{border:0;background:none;padding:0;font:inherit;font-size:12.5px;text-decoration:underline;text-underline-offset:2px;color:var(--ink-2);cursor:pointer}
+
+.tag{display:inline-block;font:700 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:4px 7px;border-radius:99px;border:1px solid var(--ink);white-space:nowrap}
+.tag.lime{background:var(--lime)} .tag.lav{background:var(--lav)} .tag.pink{background:var(--pink)}
+.tag.org{background:var(--orange);color:#000} .tag.ink{background:var(--ink);color:var(--paper)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+
+.note{padding:10px 12px;border-left:4px solid var(--orange);background:#FBF6EC;font-size:12.8px;color:var(--ink-2)}
+.error{padding:10px 12px;border-left:4px solid var(--err);background:var(--err-bg);color:var(--err);font-weight:600;font-size:13px}
+.panel{padding:12px 14px;background:var(--lav);border:var(--rule);border-radius:0 18px 18px 18px}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font:12.5px/1.35 var(--mono);margin:0}
+.meta dt{color:var(--ink-3)} .meta dd{margin:0}
+
+input[type=password],input[type=text].wide{width:100%;max-width:280px;padding:9px 11px;border:var(--rule);border-radius:8px;background:var(--field);font:14px var(--mono);color:var(--ink)}
+
+/* ---------- Kopf ---------- */
+.top{display:grid;grid-template-columns:auto 1fr auto 170px;align-items:stretch;border-bottom:var(--rule)}
+.brand{display:flex;align-items:center;padding:18px 22px;text-decoration:none;border-right:var(--rule)}
+.brand img{display:block;height:74px;width:auto;max-width:180px;object-fit:contain}
+.brand .wm{display:none;font:850 28px/0.9 var(--sans);letter-spacing:-.06em}
+.brand.noimg img{display:none} .brand.noimg .wm{display:block}
+.name{display:flex;align-items:flex-end;padding:18px 22px}
+.claim{align-self:end;padding:18px 22px;font-size:clamp(16px,1.5vw,21px);line-height:1.08;font-weight:700;letter-spacing:-.02em;max-width:30ch}
+.claim span{font-weight:500;color:var(--ink-3)}
+.deco{border-left:var(--rule);overflow:hidden;min-height:120px}
+.deco svg{display:block;width:100%;height:100%}
+
+/* ---------- Navigation ---------- */
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 22px;border-bottom:var(--rule);position:sticky;top:0;z-index:5;background:var(--paper)}
+.nav a{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border:var(--rule);border-radius:99px;text-decoration:none;font:650 14px/1.1 var(--sans);transition:background .15s}
+.nav a .sec-n{width:24px;height:24px;font-size:10.5px}
+.nav a:hover{background:var(--paper-2)}
+.nav a[aria-current=page]{background:var(--lime)}
+.nav .lock{font:600 11px/1 var(--mono);color:var(--ink-3);margin-left:-2px}
+
+/* ---------- Abschnitte ---------- */
+main{min-height:60vh}
+.intro{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 40px;align-items:end;padding:34px 22px 26px}
+.intro .lead{max-width:42ch;margin-top:14px;color:var(--ink-2)}
+.intro .kick{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;align-items:center}
+.chip{appearance:none;border:var(--rule);background:var(--paper);border-radius:99px;padding:6px 12px;font:650 13px/1.1 var(--sans);color:var(--ink);cursor:pointer;transition:background .15s}
+.chip:hover{background:var(--paper-2)}
+.chip[aria-pressed=true]{background:var(--lime)}
+.count{font:12.5px/1 var(--mono);color:var(--ink-3);width:100%;text-align:right;margin-top:4px}
+
+/* ---------- Raster ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:var(--rule)}
+.tile{display:flex;flex-direction:column;gap:12px;padding:18px 22px 24px;text-decoration:none;border-bottom:var(--rule);border-left:var(--rule);transition:background .15s}
+.tile:nth-child(3n+1){border-left:0}
+.tile:hover{background:var(--field)}
+.tile:hover h3{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
+.tile .cap{display:flex;align-items:center;gap:8px}
+.tile .num{font:600 12px/1 var(--mono);color:var(--ink-3)}
+.tile p{font-size:13.5px;color:var(--ink-2);max-width:42ch}
+.media{position:relative;aspect-ratio:16/10;background:var(--paper-2);overflow:hidden}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph{position:absolute;inset:0}
+.ph svg{width:100%;height:100%;display:block}
+.ph .lbl{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.ph .lbl b{font:700 10.5px/1 var(--mono);letter-spacing:.06em;padding:4px 7px;border:1px dashed var(--ink);border-radius:99px;background:var(--paper)}
+.ph .lbl i{font:500 11px/1.2 var(--mono);font-style:normal;color:var(--ink-2);background:var(--paper);padding:2px 5px}
+.empty{padding:40px 22px;border-top:var(--rule)}
+
+/* ---------- Detail ---------- */
+.dhead{padding:22px 22px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.dtitle{padding:26px 22px 28px;border-bottom:var(--rule)}
+.dtitle .claim{padding:14px 0 0;max-width:46ch}
+.dgrid{display:grid;grid-template-columns:384px minmax(0,1fr)}
+.dtext{padding:22px;border-right:var(--rule);display:flex;flex-direction:column;gap:22px}
+.dtext .body p{max-width:42ch}
+.dtext .body p + p{margin-top:12px}
+.gallery{display:grid;gap:0}
+.gallery figure{margin:0;border-bottom:var(--rule)}
+.gallery figure:last-child{border-bottom:0}
+.gallery img{display:block;width:100%;height:auto;background:var(--paper-2)}
+.gallery .media{aspect-ratio:16/10}
+.pn{display:flex;justify-content:space-between;gap:10px;padding:16px 22px;border-top:var(--rule);flex-wrap:wrap}
+
+/* ---------- Kunden-Schloss ---------- */
+.gate{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border-top:var(--rule)}
+.gate form{padding:26px 22px;display:flex;flex-direction:column;gap:12px;max-width:520px}
+.gate label{font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.gate .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gate .art{border-left:var(--rule);background:var(--paper-2);min-height:280px;position:relative;overflow:hidden}
+.gate .art svg{position:absolute;inset:0;width:100%;height:100%}
+.unlockbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 22px;border-top:var(--rule);flex-wrap:wrap}
+
+/* ---------- Werkstatt ---------- */
+.tools{border-top:var(--rule)}
+.group{padding:22px 22px 8px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.trow{display:grid;grid-template-columns:44px 88px minmax(0,1fr) auto;gap:18px;padding:20px 22px;border-top:1px solid var(--paper-3);align-items:start;position:relative}
+.group + .trow{border-top:var(--rule)}
+.trow.feat::before{content:"";position:absolute;left:0;top:-1px;bottom:0;width:4px;background:var(--lime)}
+.trow .num{font:600 12px/30px var(--mono);color:var(--ink-3)}
+.ticon{width:88px;height:88px;border:var(--rule);display:grid;place-items:center;background:var(--paper)}
+.ticon svg{width:64px;height:64px}
+.tbody{display:flex;flex-direction:column;gap:9px;min-width:0}
+.tbody p{max-width:62ch;color:var(--ink-2)}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;font:12.5px/1.35 var(--mono);color:var(--ink)}
+.facts li::before{content:"· ";color:var(--ink-3)}
+.facts li:first-child::before{content:""}
+.tact{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.embed{grid-column:1/-1;margin-top:6px}
+.embed iframe{display:block;width:100%;height:min(80vh,820px);border:var(--rule);border-radius:0 18px 18px 18px;background:var(--field)}
+
+/* ---------- Über mich / Kontakt ---------- */
+.two{display:grid;grid-template-columns:minmax(0,1fr) 384px;border-top:var(--rule)}
+.two > div{padding:22px}
+.two > div + div{border-left:var(--rule)}
+.prose p{max-width:42ch} .prose p + p{margin-top:12px}
+.quote{font-size:clamp(20px,2vw,26px);line-height:1.05;font-weight:800;letter-spacing:-.03em;max-width:22ch}
+.contact{position:relative;overflow:hidden;min-height:340px}
+.bigmail{display:inline-block;font:600 clamp(18px,2.2vw,28px)/1.1 var(--mono);letter-spacing:-.02em;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;overflow-wrap:anywhere}
+.contact .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.status{font:12.5px/1.4 var(--mono);color:var(--ink-2);min-height:1.4em;margin-top:10px}
+.status.ok{color:var(--ok)} .status.bad{color:var(--err)}
+.corner{position:absolute;right:0;bottom:0;width:170px;height:170px;pointer-events:none}
+
+/* ---------- Fuß ---------- */
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:16px 22px;border-top:var(--rule);font:12.5px/1.3 var(--mono);color:var(--ink-3)}
+footer nav{display:flex;gap:16px}
+footer a{color:var(--ink-2)}
+
+/* ---------- Detail-Inhalte ---------- */
+.dgrid{grid-template-columns:292px minmax(0,1fr)}
+.dtext{padding:0;border-right:var(--rule)}
+.stick{position:sticky;top:64px;padding:22px;display:flex;flex-direction:column;gap:18px}
+.flow{min-width:0}
+.flow > * + *{border-top:var(--rule)}
+.txt{padding:26px 22px}
+.txt p{max-width:62ch;font-size:16px;line-height:1.5}
+.txt p + p{margin-top:12px}
+.txt a{text-underline-offset:2px}
+.imgs{display:grid;gap:1px;background:var(--ink)}
+.imgs.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.imgs.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.imgs figure{margin:0;background:var(--paper-2);display:flex;align-items:center;justify-content:center}
+.zoom{all:unset;display:block;width:100%;cursor:zoom-in}
+.zoom:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.zoom img{display:block;width:100%;height:auto}
+.zoom .media{aspect-ratio:auto;min-height:220px}
+.zoom .media.done{min-height:0}
+.zoom .media.done img{position:static;display:block;width:100%;height:auto}
+.credits{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;margin:0;font:13px/1.4 var(--mono)}
+.credits dt{color:var(--ink-3)} .credits dd{margin:0}
+.credits dt.ch{grid-column:1/-1;font:800 16px/1 var(--sans);letter-spacing:-.02em;color:var(--ink);margin-top:14px}
+.credits dt.ch:first-child{margin-top:0}
+.emb{aspect-ratio:16/10;background:var(--paper-2);display:grid;place-items:center;position:relative}
+.emb.on{background:#191919}
+.emb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.embph{display:flex;flex-direction:column;gap:10px;align-items:flex-start;max-width:44ch;padding:22px}
+.embph .row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+dialog#lb{border:var(--rule);border-radius:22px 22px 22px 0;background:var(--paper);color:var(--ink);padding:0;width:min(96vw,1600px);height:92vh;max-height:92vh;overflow:hidden}
+dialog#lb[open]{display:flex;flex-direction:column}
+dialog#lb::backdrop{background:rgba(21,20,18,.42)}
+.lbbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:var(--rule);flex-wrap:wrap;font-size:12.5px}
+.lbbtns{display:flex;gap:6px;flex-wrap:wrap}
+.lbstage{flex:1;min-height:0;display:grid;place-items:center;background:var(--paper-2);overflow:auto}
+.lbstage img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+dialog#lb.full .lbstage{place-items:start}
+dialog#lb.full .lbstage img{max-width:none;max-height:none}
+@media (max-width:1100px){ .dgrid{grid-template-columns:minmax(0,1fr)} .stick{position:static} .imgs.c3{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:760px){ .imgs.c2,.imgs.c3{grid-template-columns:minmax(0,1fr)} .emb{aspect-ratio:4/5} }
+
+/* ---------- Breakpoints ---------- */
+@media (max-width:1100px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile:nth-child(3n+1){border-left:var(--rule)}
+  .tile:nth-child(2n+1){border-left:0}
+  .dgrid,.two{grid-template-columns:minmax(0,1fr)}
+  .dtext{border-right:0;border-bottom:var(--rule)}
+  .two > div + div{border-left:0;border-top:var(--rule)}
+  .top{grid-template-columns:auto 1fr 120px}
+  .top .claim{grid-column:1/-1;border-top:var(--rule);max-width:none}
+  .top .deco{grid-row:1;grid-column:3}
+}
+@media (max-width:760px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .tile{border-left:0!important}
+  .intro{grid-template-columns:minmax(0,1fr)}
+  .filters{justify-content:flex-start}
+  .count{text-align:left}
+  .gate{grid-template-columns:minmax(0,1fr)}
+  .gate .art{border-left:0;border-top:var(--rule);min-height:160px}
+  .trow{grid-template-columns:minmax(0,1fr);gap:12px}
+  .trow .num{line-height:1}
+  .tact{align-items:flex-start;flex-direction:row;flex-wrap:wrap}
+  .top{grid-template-columns:1fr 90px}
+  .brand{border-right:0;padding-bottom:0}
+  .name{grid-row:2;grid-column:1/-1;padding-top:10px}
+  .top .claim{grid-row:3}
+  .top .deco{grid-row:1;grid-column:2}
+  .brand img{height:56px}
+  .nav{padding:10px 14px;overflow-x:auto;flex-wrap:nowrap}
+  .nav a{flex:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#view">Zum Inhalt springen</a>
+
+<header class="top">
+  <a class="brand" href="#arbeiten" aria-label="Marcel Rittau – zur Startseite">
+    <img id="logo" src="bilder/logo.png" alt="Marcel Rittau">
+    <span class="wm" aria-hidden="true">MR</span>
+  </a>
+  <div class="name"><h1>Marcel<br>Rittau</h1></div>
+  <p class="claim">Hallöchen :) Schön, dass ihr mich gefunden habt.<br><span>Grafikdesign und Branding in 2D und 3D. Aus Köln.</span></p>
+  <div class="deco" aria-hidden="true">
+    <svg viewBox="0 0 170 130" preserveAspectRatio="xMidYMid slice">
+      <path d="M170 0 A82 82 0 0 1 88 82 L88 0 Z" fill="#FFA6D0"/>
+      <path d="M8 130 A48 48 0 0 1 104 130 Z" fill="#BCA9F7"/>
+      <circle cx="38" cy="38" r="15" fill="#FF6B1A"/>
+      <circle cx="146" cy="106" r="10" fill="none" stroke="#151412" stroke-width="1.5"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="nav" id="nav" aria-label="Bereiche"></nav>
+
+<main id="view" tabindex="-1"></main>
+
+<dialog id="lb" aria-label="Großansicht">
+  <div class="lbbar"><span id="lbName" class="mono"></span><span class="lbbtns"><button class="btn small" type="button" id="lbPrev" aria-label="Vorheriges Bild">←</button><button class="btn small" type="button" id="lbNext" aria-label="Nächstes Bild">→</button><button class="btn small" type="button" id="lbFit">1:1 anzeigen</button><button class="btn small primary" type="button" id="lbClose">Schließen (Esc)</button></span></div>
+  <div class="lbstage"><img id="lbImg" alt=""></div>
+</dialog>
+
+<footer>
+  <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  <span>Ein Portfolio von Marcel Rittau &lt;3</span>
+</footer>
+
+<!-- Verschlüsselter Kundenbereich. Neu erzeugen mit kunden-verschluesseln.html -->
+<script src="arbeiten.js"></script>
+<script src="kunden.enc.js"></script>
+<script>
+/* =====================================================================
+   INHALTE – hier pflegst du die Seite.
+   Kachel-Infos stehen hier. Texte, Bilder und Videos der Detailseiten stehen in arbeiten.js
+   (übernommen aus dem Adobe-Portfolio, Bilder in bilder/<slug>/).
+   ===================================================================== */
+
+const LOGO_FALLBACK = null;
+
+/* Name des Tool-Bereichs – frei änderbar */
+const TOOLS_NAME = "Vibe Coded Tools";
+
+const ARBEITEN = [
+  { slug:"index", titel:"index", untertitel:"Die App für Jugendsprache.",
+    bereiche:["UI/UX"], kontext:"Studienprojekt",
+    disziplinen:["UI/UX Design","App-Konzept"] },
+  { slug:"yat-kha", titel:"We will never Die", untertitel:"Albumcover und Poster in limitierter Auflage für die Band Yat-Kha.",
+    bereiche:["Print"], kontext:"Im Auftrag von Lollipop Shop",
+    disziplinen:["Albumcover","Poster","Prepress","Press","Postpress"] },
+  { slug:"skola", titel:"skola", untertitel:"Ein Redesign von Bildung.",
+    bereiche:["UI/UX","Konzept"], kontext:"Studienprojekt",
+    disziplinen:["Konzeption","App-Design","Service Design"] },
+  { slug:"hensyn-we-know", titel:"Hensyn – We know", untertitel:"Unsere Website, die Stalker stalkt.",
+    bereiche:["Kampagne","Web","Film"], kontext:"Teamprojekt zu dritt" },
+  { slug:"ooh-gott", titel:"ooh gott", untertitel:"Eine Kampagne gegen den systematischen Missbrauch in der Kirche.",
+    bereiche:["Kampagne"], kontext:"Unveröffentlichte Kampagne",
+    disziplinen:["Konzeption","Key Visuals"] },
+  { slug:"taboo", titel:"Taboo", untertitel:"Das Magazin über Kink, Gender und Expression.",
+    bereiche:["Editorial"], kontext:"Teamprojekt",
+    disziplinen:["Editorial Design","Layout","Typografie"] },
+  { slug:"leichte-sprache", titel:"Leichte Sprache", untertitel:"Eigene Symbole, um Sexualität leichter erklären zu können.",
+    bereiche:["Piktogramme"], kontext:"Kurs „Grafik in Raum und Umgebung“ · mit dem Integrationsfachdienst Schwaben",
+    disziplinen:["Piktogramme","Leichte Sprache","Informationsdesign"] },
+  { slug:"inzeit", titel:"InZeit", untertitel:"Ein Wein von Studenten für Studenten.",
+    bereiche:["3D","Packaging"], kontext:"Mein erstes 3D-Projekt · mit Prof. Sebastian Hirsch",
+    disziplinen:["3D","Packshot","Packaging"] },
+  { slug:"shoegloves", titel:"Shoegloves", untertitel:"Logoentwicklung für eine Marke wiederverwendbarer Schuhüberzieher.",
+    bereiche:["Branding"], kontext:"Projektwerkstatt · mit Prof. Felix Thomas",
+    disziplinen:["Logo","Branding"] }
+];
+
+/* Tool-Bereich */
+const SKINCARE_URL = "https://uschimarcel.github.io/UschisSkincare/";
+const TOOLS = [
+  { gruppe:"Web-Apps" },
+  { id:"skincare", titel:"Uschi's Skincare Guide", tags:[["Web-App","lime"],["Passwortgeschützt","lav"]], feat:true,
+    text:"Aus einer Produktliste wird eine persönliche Morgen- und Abendroutine: Hauttyp und Baustellen wählen, Erfahrung angeben, Budget einstellen. Die Seite warnt bei Wirkstoffen, die sich nicht vertragen, und schlägt Alternativen vor.",
+    facts:["Routine in der richtigen Reihenfolge","Budget-Regler in 0,5-€-Schritten","Konflikt-Warnungen","Export als Bild oder Text","Dunkelmodus","Produkte als JSON"],
+    icon:"skincare", aktionen:[{typ:"embed",label:"Hier ausprobieren"},{typ:"link",label:"In neuem Tab öffnen",href:SKINCARE_URL}],
+    hinweis:"Die Seite hat ein eigenes Passwort. Das bekommst du von mir." },
+  { id:"loop-lab", titel:"Loop Lab", tags:[["Web-App","lime"],["100 % lokal","org"]],
+    text:"MP4 rein. GIF raus. Ein Exporttool für Banner-GIFs, das komplett im Browser läuft. Erst prüfst du die Vorschau an einem Beispiel, dann läuft der ganze Stapel mit denselben Einstellungen.",
+    facts:["Zielgröße automatisch, z. B. max. 300 KB","Geschützte Markenfarben bleiben exakt","Ordner beobachten","ZIP oder Zielordner","eigener GIF89a-/LZW-Encoder","offline, kein Upload"],
+    icon:"looplab", aktionen:[{typ:"datei",label:"Loop Lab öffnen",href:null}] },
+  { gruppe:"Photoshop-Skripte", sub:"4 Skripte · ExtendScript (.jsx)" },
+  { id:"layer-name-editor", titel:"Layer Name Editor", tags:[["Benennen","pink"]],
+    text:"Benennt ausgewählte oder alle Ebenen um. Pro Durchlauf gilt eine Regel: Präfix, Suffix, Entfernen, Einfügen oder Ersetzen. Auf Wunsch legt das Skript vorher einen Snapshot im Protokoll an.",
+    facts:["5 Regeln","Snapshot vor dem Umbenennen","Meldung mit Anzahl geänderter Namen"],
+    icon:"ps1", aktionen:[{typ:"datei",label:"Skript laden",href:null}] },
+  { id:"smartobjekt-text-fr", titel:"Smartobjekt Text-F&R", tags:[["Bearbeiten","lav"]],
+    text:"Findet und ersetzt Text in Smartobjekten, also genau dort, wo die normale Suche von Photoshop nicht hinkommt. Andere Ebenen werden übersprungen und in der Meldung genannt.",
+    facts:["Aus 30 wird 32, 130 und 300 bleiben","übersprungene Ebenen werden gelistet"],
+    icon:"ps2", aktionen:[{typ:"datei",label:"Skript laden",href:null}] },
+  { id:"artboard-export", titel:"Artboard Export", tags:[["Exportieren","lime"]],
+    text:"Exportiert sichtbare Artboards pro Sprache in einen Sammelordner. Hat ein Artboard einen transparenten Rand, wird es ein PNG, sonst ein JPG. Am Ende kommt ein Abschlussbericht.",
+    facts:["DE · FR · IT · EN · DFIE-Fallback","JPG-Qualität 1–12, Standard 8","Ordner „…_Export“"],
+    icon:"ps3", aktionen:[{typ:"datei",label:"Skript laden",href:null}] },
+  { id:"bereinige-ordner", titel:"Bereinige Photoshop-Ordner", tags:[["Bereinigen","org"]],
+    text:"Räumt ganze Ordner mit PSD- und PSB-Dateien auf. Das Skript arbeitet nur auf Kopien im Unterordner „Bereinigt“ und überschreibt nichts. Die Originale bleiben, wie sie sind.",
+    facts:["Stapel für PSD und PSB","Originale bleiben unberührt"],
+    icon:"ps4", aktionen:[{typ:"datei",label:"Skript laden",href:null}] }
+];
+
+/* ===================================================================== */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const BEREICH_FARBE = {"UI/UX":"lav","Print":"org","Kampagne":"pink","Editorial":"lav","Piktogramme":"lime","3D":"org","Packaging":"","Branding":"lime","Web":"","Film":"","Konzept":""};
+
+let KUNDEN = null;        // entschlüsselte Kundenprojekte
+let CK = null;            // Schlüssel für die verschlüsselten Kundenbilder
+const INHALT = window.ARBEITEN_INHALT || {};
+ARBEITEN.forEach(p => { const x = INHALT[p.slug]; if (x){ p.blocks = x.blocks; if (x.cover) p.cover = x.cover; } });
+let filter = "Alle";
+const embedOpen = new Set();
+
+/* ---------- Logo ---------- */
+(function(){
+  const img = $("logo"), brand = img.closest(".brand");
+  img.addEventListener("error", function onErr(){
+    if (!LOGO_FALLBACK || img.dataset.fb) { brand.classList.add("noimg"); img.removeEventListener("error", onErr); return; }
+    img.dataset.fb = "1"; img.src = LOGO_FALLBACK;
+  });
+})();
+
+/* ---------- Navigation ---------- */
+const ROUTES = [
+  ["arbeiten","Arbeiten"],["kunden","Agentur Kunden"],["tools",TOOLS_NAME],["ueber-mich","Über mich"],["kontakt","Kontakt"]
+];
+function renderNav(active){
+  $("nav").innerHTML = ROUTES.map(([id,label],i) =>
+    `<a href="#${id}"${id===active?' aria-current="page"':''}><span class="sec-n">${pad(i+1)}</span>${esc(label)}${id==="kunden" && !KUNDEN ? '<span class="lock" aria-label="passwortgeschützt">· geschützt</span>':''}</a>`).join("");
+}
+
+/* ---------- Platzhalter-Grafiken ---------- */
+function phSVG(i){
+  const v = i % 4;
+  const shapes = [
+    `<path d="M320 0 A70 70 0 0 1 250 70 L250 0 Z" fill="#FFA6D0"/><circle cx="110" cy="100" r="44" fill="none" stroke="#151412" stroke-width="1.5"/>`,
+    `<path d="M110 200 A50 50 0 0 1 210 200 Z" fill="#BCA9F7"/><circle cx="250" cy="60" r="12" fill="#FF6B1A"/><circle cx="90" cy="70" r="30" fill="none" stroke="#151412" stroke-width="1.5"/>`,
+    `<g stroke="#151412" stroke-width="1.5" fill="#CDF443"><circle cx="152" cy="90" r="15"/><circle cx="168" cy="90" r="15"/><circle cx="152" cy="106" r="15"/><circle cx="168" cy="106" r="15"/></g>`,
+    `<path d="M0 0 A110 110 0 0 1 110 110 L0 110 Z" fill="none" stroke="#151412" stroke-width="1.5"/><circle cx="230" cy="120" r="13" fill="#FF6B1A"/><circle cx="270" cy="70" r="9" fill="none" stroke="#151412" stroke-width="1.5"/>`
+  ];
+  return `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${shapes[v]}</svg>`;
+}
+function placeholder(i, file){
+  return `<div class="ph">${phSVG(i)}<div class="lbl"><b>PLATZHALTER</b>${file?`<i>${esc(file)}</i>`:""}</div></div>`;
+}
+/* Bild mit Platzhalter dahinter. Lädt das Bild, verschwindet der Platzhalter. */
+function mediaBox(src, i, label, alt){
+  return `<div class="media">${placeholder(i,label)}${src?`<img src="${esc(src)}" alt="${esc(alt||"")}" loading="lazy" onload="this.previousElementSibling.hidden=true" onerror="this.remove()">`:""}</div>`;
+}
+
+/* ---------- Arbeiten / Kunden: Raster ---------- */
+function coverOf(p){ return p.cover || null; }
+function tiles(list, kind){
+  return list.map((p,i) => {
+    const n = (kind==="arbeiten"?ARBEITEN:KUNDEN).indexOf(p)+1;
+    const cov = coverOf(p);
+    const tags = (p.bereiche||[]).map(b=>`<span class="tag ${BEREICH_FARBE[b]||""}">${esc(b)}</span>`).join("");
+    const ph = p.platzhalter ? `<span class="tag" style="border-style:dashed">Platzhalter</span>` : "";
+    return `<a class="tile" href="#${kind}/${esc(p.slug)}">
+      ${cov && typeof cov==="object" ? encBox(cov, n-1, p.titel) : mediaBox(cov, n-1, cov||"kein Bild hinterlegt", p.titel)}
+      <div class="cap"><span class="num">${pad(n)}</span><span class="tags">${tags}${ph}${p.kunde?`<span class="tag ink">${esc(p.kunde)}</span>`:""}</span></div>
+      <h3>${esc(p.titel)}</h3>
+      <p>${esc(p.untertitel)}</p>
+    </a>`;
+  }).join("");
+}
+
+function viewArbeiten(){
+  const all = ["Alle", ...new Set(ARBEITEN.flatMap(p=>p.bereiche))];
+  if (!all.includes(filter)) filter = "Alle";
+  const list = filter==="Alle" ? ARBEITEN : ARBEITEN.filter(p=>p.bereiche.includes(filter));
+  return `<section class="intro" aria-labelledby="h-main">
+    <div>
+      <div class="kick"><span class="sec-n">01</span><span class="subhead">Arbeiten</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Neun Arbeiten.<br>Ein Kopf.</h2>
+      <p class="lead">Albumcover, Kampagnen, Editorial, Apps und 3D. Ein Einblick in Projekte aus Studium und Praxis.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Nach Bereich filtern">
+      ${all.map(b=>`<button class="chip" type="button" data-filter="${esc(b)}" aria-pressed="${b===filter}">${esc(b)}</button>`).join("")}
+      <span class="count" aria-live="polite">${list.length} von ${ARBEITEN.length}</span>
+    </div>
+  </section>
+  <div class="grid">${tiles(list,"arbeiten")}</div>`;
+}
+
+/* ---------- Detail ---------- */
+const EMBED_INFO = u => /youtube/.test(u) ? ["Video","YouTube"] : /xd\.adobe/.test(u) ? ["Prototyp","Adobe XD"] : /adobe\.io/.test(u) ? ["Video","Adobe"] : ["Einbettung", (()=>{try{return new URL(u).hostname}catch(e){return "extern"}})()];
+function embedSrc(u){ return u.replace("www.youtube.com/embed","www.youtube-nocookie.com/embed"); }
+function imgHTML(src, i, alt){
+  if (src && typeof src === "object") return `<button class="zoom" type="button" data-zoom="${i}" aria-label="${esc(alt)} groß anzeigen">${encBox(src, i, alt)}</button>`;
+  return `<button class="zoom" type="button" data-zoom="${i}" aria-label="${esc(alt)} groß anzeigen"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async"></button>`;
+}
+function blocksHTML(p){
+  const out = []; let run = []; let n = 0;
+  const flush = () => { if (!run.length) return;
+    const cols = run.length===1 ? 1 : run.length>=6 ? 3 : 2;
+    out.push(`<div class="imgs c${cols}">${run.map(b=>`<figure>${imgHTML(b.src, b.i, `${p.titel} – Bild ${b.i+1}`)}</figure>`).join("")}</div>`); run = []; };
+  (p.blocks||[]).forEach(b => {
+    if (b.t==="img"){ run.push({src:b.src, i:n++}); return; }
+    flush();
+    if (b.t==="text") out.push(`<div class="txt">${b.p.map(x=>`<p>${x}</p>`).join("")}</div>`);
+    else if (b.t==="credits") out.push(`<div class="txt"><dl class="credits">${b.groups.map(g=>`${g.h?`<dt class="ch">${esc(g.h)}</dt>`:""}${g.rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}`).join("")}</dl></div>`);
+    else if (b.t==="embed"){ const [art,anb] = EMBED_INFO(b.src);
+      out.push(`<div class="emb" data-src="${esc(embedSrc(b.src))}"><div class="embph"><div class="tags"><span class="tag lav">${art}</span><span class="tag">${esc(anb)}</span></div>
+        <p class="hint">Wird erst nach dem Klick von ${esc(anb)} geladen. Dabei gehen Daten an ${esc(anb)}.</p>
+        <div class="row"><button class="btn lime" type="button" data-load-embed>${art} laden</button><a class="linkbtn" href="${esc(b.src)}" target="_blank" rel="noopener">In neuem Tab öffnen ↗</a></div></div></div>`); }
+  });
+  flush();
+  return out.join("") || `<div class="txt"><p class="hint">Für dieses Projekt sind noch keine Inhalte hinterlegt.</p></div>`;
+}
+function viewDetail(kind, slug){
+  const list = kind==="arbeiten" ? ARBEITEN : KUNDEN;
+  const i = list.findIndex(p=>p.slug===slug);
+  if (i<0) return viewNotFound(kind);
+  const p = list[i], prev = list[(i-1+list.length)%list.length], next = list[(i+1)%list.length];
+  const back = kind==="arbeiten" ? "Alle Arbeiten" : "Alle Kundenprojekte";
+  const tags = (p.bereiche||[]).map(b=>`<span class="tag ${BEREICH_FARBE[b]||""}">${esc(b)}</span>`).join("");
+  const nImg = (p.blocks||[]).filter(b=>b.t==="img").length, nEmb = (p.blocks||[]).filter(b=>b.t==="embed").length;
+  const meta = [
+    p.kunde && ["Kunde", p.kunde],
+    p.kontext && ["Kontext", p.kontext],
+    p.jahr && ["Jahr", p.jahr],
+    p.disziplinen?.length && ["Disziplinen", p.disziplinen.join(" · ")],
+    ["Umfang", [nImg && `${nImg} ${nImg===1?"Bild":"Bilder"}`, nEmb && `${nEmb} ${nEmb===1?"Einbettung":"Einbettungen"}`].filter(Boolean).join(" · ") || "–"]
+  ].filter(Boolean);
+  currentImgs = (p.blocks||[]).filter(b=>b.t==="img").map(b=>b.src);
+  currentTitle = p.titel;
+  return `<div class="dhead">
+      <a class="linkbtn" href="#${kind}">← ${back}</a>
+      <span class="subhead">${kind==="arbeiten"?"Arbeit":"Kundenprojekt"} ${pad(i+1)} / ${pad(list.length)}</span>
+    </div>
+    <div class="dtitle">
+      <div class="tags" style="margin-bottom:14px">${tags}${p.platzhalter?'<span class="tag" style="border-style:dashed">Platzhalter</span>':""}</div>
+      <h2 class="display" id="h-main" tabindex="-1" style="font-size:clamp(38px,4.4vw,64px);line-height:.88">${esc(p.titel)}</h2>
+      ${p.untertitel?`<p class="claim">${esc(p.untertitel)}</p>`:""}
+    </div>
+    <div class="dgrid">
+      <aside class="dtext"><div class="stick">
+        <dl class="meta">${meta.map(([a,b])=>`<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>
+        ${p.link?`<p><a class="btn" href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.linkLabel||"Projekt ansehen")} ↗</a></p>`:""}
+      </div></aside>
+      <div class="flow">${blocksHTML(p)}</div>
+    </div>
+    <nav class="pn" aria-label="Weitere Projekte">
+      <a class="btn small" href="#${kind}/${esc(prev.slug)}">← ${esc(prev.titel)}</a>
+      <a class="btn small" href="#${kind}/${esc(next.slug)}">${esc(next.titel)} →</a>
+    </nav>`;
+}
+let currentImgs = [], currentTitle = "";
+
+/* ---------- Verschlüsselte Kundenbilder ---------- */
+const encCache = new Map();
+function encBox(ref, i, alt){
+  return `<div class="media enc" data-f="${esc(ref.f)}" data-t="${esc(ref.t)}" data-alt="${esc(alt)}">${placeholder(i, "verschlüsselt · lädt …")}</div>`;
+}
+async function decryptFile(ref){
+  if (encCache.has(ref.f)) return encCache.get(ref.f);
+  const pr = (async () => {
+    const r = await fetch("kunden/" + ref.f);
+    if (!r.ok) throw new Error("http " + r.status);
+    const buf = new Uint8Array(await r.arrayBuffer());
+    const plain = await crypto.subtle.decrypt({name:"AES-GCM", iv:buf.slice(0,12)}, CK, buf.slice(12));
+    return URL.createObjectURL(new Blob([plain], {type:ref.t}));
+  })();
+  encCache.set(ref.f, pr);
+  pr.catch(()=>encCache.delete(ref.f));
+  return pr;
+}
+const encObs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ encObs.unobserve(e.target); loadEnc(e.target); } }), {rootMargin:"600px"}) : null;
+async function loadEnc(el){
+  try {
+    const url = await decryptFile({f:el.dataset.f, t:el.dataset.t});
+    const im = document.createElement("img"); im.alt = el.dataset.alt; im.src = url;
+    el.classList.add("done"); el.innerHTML = ""; el.appendChild(im);
+  } catch(e){
+    const lbl = el.querySelector(".lbl i");
+    if (lbl) lbl.textContent = location.protocol==="file:" ? "lädt nur über einen Webserver" : "konnte nicht geladen werden";
+  }
+}
+function wireEnc(){ document.querySelectorAll(".media.enc:not(.done)").forEach(el => encObs ? encObs.observe(el) : loadEnc(el)); }
+
+/* ---------- Großansicht ---------- */
+async function openZoom(i){
+  const d = $("lb"); if (!d) return;
+  lbIndex = (i + currentImgs.length) % currentImgs.length;
+  const src = currentImgs[lbIndex];
+  $("lbName").textContent = `${currentTitle} · ${pad(lbIndex+1)} / ${pad(currentImgs.length)}`;
+  const im = $("lbImg"); im.alt = `${currentTitle} – Bild ${lbIndex+1}`;
+  im.src = typeof src === "object" ? await decryptFile(src).catch(()=> "") : src;
+  if (!d.open) d.showModal();
+}
+let lbIndex = 0;
+
+function viewNotFound(kind){
+  return `<section class="intro"><div><div class="kick"><span class="subhead">Nicht gefunden</span></div>
+    <h2 class="display" id="h-main" tabindex="-1">Das gibt es hier nicht.</h2>
+    <p class="lead">Der Link zeigt auf ein Projekt, das es nicht (mehr) gibt. Vielleicht wurde es umbenannt.</p>
+    <p style="margin-top:16px"><a class="btn" href="#${kind||"arbeiten"}">Zur Übersicht</a></p></div></section>`;
+}
+
+/* ---------- Kunden ---------- */
+const b64 = s => Uint8Array.from(atob(s), c=>c.charCodeAt(0));
+async function decryptKunden(pw){
+  const E = window.KUNDEN_ENC;
+  if (!E) throw Object.assign(new Error("missing"),{code:"missing"});
+  if (!crypto?.subtle) throw Object.assign(new Error("nocrypto"),{code:"nocrypto"});
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({name:"PBKDF2", salt:b64(E.salt), iterations:E.iter, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  let plain;
+  try { plain = await crypto.subtle.decrypt({name:"AES-GCM", iv:b64(E.iv)}, key, b64(E.data)); }
+  catch(e){ throw Object.assign(new Error("wrong"),{code:"wrong"}); }
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+function viewKundenGate(err){
+  const msgs = {
+    wrong:"Das Passwort passt nicht. Vielleicht ein Tippfehler oder die Feststelltaste. Probier es noch einmal oder frag mich nach dem aktuellen Passwort.",
+    missing:"Der Kundenbereich konnte nicht geladen werden. Die Datei kunden.enc.js fehlt neben der index.html. Lege sie wieder dazu und lade die Seite neu.",
+    nocrypto:"Dein Browser kann hier nicht entschlüsseln, weil die Seite nicht über HTTPS läuft. Öffne sie über https:// oder in einem aktuellen Chrome oder Safari."
+  };
+  return `<section class="intro"><div>
+      <div class="kick"><span class="sec-n">02</span><span class="subhead">Agentur Kunden</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Nur für Agentur-Kunden.<br>Mit Passwort.</h2>
+      <p class="lead">Arbeiten für Kund:innen zeige ich nicht öffentlich. Mit dem Passwort, das du von mir bekommen hast, siehst du sie hier.</p>
+    </div></section>
+  <div class="gate">
+    <form id="gateForm" novalidate>
+      <label for="pw">Passwort</label>
+      <div class="row">
+        <input type="password" id="pw" autocomplete="current-password" required aria-describedby="gateMsg">
+        <button class="btn primary" type="submit" id="gateBtn">Entsperren</button>
+      </div>
+      <div id="gateMsg" aria-live="polite">${err?`<div class="error">${esc(msgs[err]||msgs.wrong)}</div>`:`<p class="hint">Die Inhalte sind verschlüsselt und werden erst in deinem Browser mit dem Passwort lesbar.</p>`}</div>
+    </form>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 0 L0 150 A150 150 0 0 0 150 0 Z" fill="#BCA9F7"/>
+        <g fill="none" stroke="#151412" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="196" y="128" width="88" height="70" rx="10"/>
+          <path d="M214 128 V108 A26 26 0 0 1 266 108 V128"/>
+          <circle cx="240" cy="158" r="7"/><path d="M240 165 V178"/>
+        </g>
+        <circle cx="340" cy="230" r="22" fill="#FF6B1A"/>
+        <circle cx="300" cy="60" r="9" fill="none" stroke="#151412" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>`;
+}
+function viewKunden(){
+  if (!KUNDEN) return viewKundenGate(gateErr);
+  const n = KUNDEN.length;
+  return `<section class="intro"><div>
+      <div class="kick"><span class="sec-n">02</span><span class="subhead">Agentur Kunden</span><span class="tag lime">Entsperrt</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Für Kund:innen.<br>Nicht für alle.</h2>
+      <p class="lead">${n} ${n===1?"Projekt":"Projekte"} aus der Agenturarbeit. Bitte nicht weitergeben.</p>
+    </div></section>
+  ${location.protocol==="file:"?`<div class="note" style="margin:0 22px 18px">Die Bilder sind einzeln verschlüsselt und laden nur, wenn die Seite über einen Webserver läuft, nicht als lokale Datei.</div>`:""}
+  ${n?`<div class="grid">${tiles(KUNDEN,"kunden")}</div>`:`<div class="empty"><p>Noch keine Kundenprojekte eingetragen.</p></div>`}
+  <div class="unlockbar"><span class="subhead">Bereich bleibt entsperrt, bis du den Tab schließt</span><button class="linkbtn" type="button" id="lockBtn">Wieder sperren</button></div>`;
+}
+let gateErr = null;
+async function tryUnlock(pw, silent){
+  try {
+    const data = await decryptKunden(pw);
+    KUNDEN = Array.isArray(data) ? data : (data.projekte||[]);
+    CK = data.ck ? await crypto.subtle.importKey("raw", b64(data.ck), "AES-GCM", false, ["decrypt"]) : null;
+    gateErr = null;
+    try{ sessionStorage.setItem("mr-kunden", pw); }catch(e){}
+    return true;
+  } catch(e){
+    if (!silent) gateErr = e.code || "wrong";
+    try{ sessionStorage.removeItem("mr-kunden"); }catch(_){}
+    return false;
+  }
+}
+
+/* ---------- Tools ---------- */
+function toolIcon(k){
+  const S = `fill="none" stroke="#151412" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"`;
+  const icons = {
+    looplab:`<svg viewBox="0 0 100 100" role="img" aria-label="Logo Loop Lab: Kolben, dessen Bauch ein Kreispfeil ist"><defs><clipPath id="ll-in"><circle cx="50" cy="62" r="23.5"/></clipPath></defs><g clip-path="url(#ll-in)"><path d="M-22 67 Q-10 61 2 67 T26 67 T50 67 T74 67 T98 67 V100 H-22 Z" fill="#CDF443"/></g><g ${S}><path d="M56 35.67 A27 27 0 1 1 34.51 39.88"/><path d="M32.47 47.42 L34.51 39.88 L26.73 39.22"/><path d="M44 35.67 V21 H40.5 V14 H59.5 V21 H56 V35.67"/></g></svg>`,
+    skincare:`<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="36" y="44" width="28" height="44" rx="7" fill="#CDF443"/><g ${S}><rect x="36" y="44" width="28" height="44" rx="7"/><path d="M42 44 V34 H58 V44"/><path d="M46 34 V24 H62 L66 28"/><path d="M44 62 H56"/></g></svg>`,
+    ps1:`<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M20 62 L50 76 L80 62" ${S}/><path d="M20 48 L50 62 L80 48" ${S}/><path d="M20 34 L50 20 L80 34 L50 48 Z" fill="#FFA6D0" stroke="#151412" stroke-width="3.2" stroke-linejoin="round"/></svg>`,
+    ps2:`<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="22" y="26" width="44" height="44" rx="4" fill="#BCA9F7" stroke="#151412" stroke-width="3.2"/><g ${S}><path d="M34 40 H54 M44 40 V58"/><circle cx="66" cy="66" r="12"/><path d="M75 75 L84 84"/></g></svg>`,
+    ps3:`<svg viewBox="0 0 100 100" aria-hidden="true"><rect x="18" y="22" width="40" height="30" fill="#CDF443" stroke="#151412" stroke-width="3.2"/><g ${S}><rect x="34" y="40" width="40" height="30"/><path d="M60 82 H82 V60"/><path d="M82 82 L66 66"/></g></svg>`,
+    ps4:`<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M16 32 H40 L46 38 H84 V76 H16 Z" fill="#FF6B1A" stroke="#151412" stroke-width="3.2" stroke-linejoin="round"/><path d="M36 58 L46 66 L64 48" ${S}/></svg>`
+  };
+  return icons[k]||"";
+}
+function viewTools(){
+  let n = 0;
+  const rows = TOOLS.map(t => {
+    if (t.gruppe) return `<div class="group"><h2>${esc(t.gruppe)}</h2>${t.sub?`<span class="subhead">${esc(t.sub)}</span>`:""}</div>`;
+    n++;
+    const acts = t.aktionen.map(a => {
+      if (a.typ==="embed") return `<button class="btn lime" type="button" data-embed="${t.id}" aria-expanded="${embedOpen.has(t.id)}" aria-controls="embed-${t.id}">${embedOpen.has(t.id)?"Einbettung schließen":esc(a.label)}</button>`;
+      if (a.typ==="link") return `<a class="btn" href="${esc(a.href)}" target="_blank" rel="noopener">${esc(a.label)} ↗</a>`;
+      if (a.typ==="datei") return a.href
+        ? `<a class="btn" href="${esc(a.href)}" ${/\.html?$/.test(a.href)?'target="_blank" rel="noopener"':'download'}>${esc(a.label)}</a>`
+        : `<button class="btn" type="button" disabled title="Noch keine Datei hinterlegt. Trage den Pfad im Feld „href“ ein.">${esc(a.label)}</button>`;
+      return "";
+    }).join("");
+    const datei = t.aktionen.find(a=>a.typ==="datei");
+    return `<article class="trow${t.feat?" feat":""}" id="tool-${t.id}">
+      <span class="num">${pad(n)}</span>
+      <div class="ticon">${toolIcon(t.icon)}</div>
+      <div class="tbody">
+        <div class="tags">${t.tags.map(([l,c])=>`<span class="tag ${c}">${esc(l)}</span>`).join("")}</div>
+        <h3>${esc(t.titel)}</h3>
+        <p>${esc(t.text)}</p>
+        <ul class="facts">${t.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
+        ${t.hinweis?`<p class="hint">${esc(t.hinweis)}</p>`:""}
+        ${datei && !datei.href?`<p class="hint" style="color:var(--ink-3)">Download folgt.</p>`:""}
+      </div>
+      <div class="tact">${acts}</div>
+      ${embedOpen.has(t.id)?`<div class="embed" id="embed-${t.id}"><iframe src="${esc(SKINCARE_URL)}" title="${esc(t.titel)} – eingebettet" loading="lazy" referrerpolicy="no-referrer"></iframe></div>`:""}
+    </article>`;
+  }).join("");
+  return `<section class="intro" style="position:relative">
+    <div>
+      <div class="kick"><span class="sec-n">03</span><span class="subhead">${esc(TOOLS_NAME)}</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Mit KI gebaut.<br>Jeden Tag benutzt.</h2>
+      <p class="lead">Werkzeuge, die ich zusammen mit einer KI gebaut habe, Schritt für Schritt aus echten Aufgaben heraus. Keine großen Software-Projekte, sondern Abkürzungen für den Alltag.</p>
+    </div>
+    <svg width="120" height="120" viewBox="0 0 100 100" aria-hidden="true"><g stroke="#151412" stroke-width="2" fill="#CDF443"><circle cx="38" cy="38" r="20"/><circle cx="62" cy="38" r="20"/><circle cx="38" cy="62" r="20"/><circle cx="62" cy="62" r="20"/></g><circle cx="50" cy="50" r="6" fill="#FF6B1A"/></svg>
+  </section>
+  <div class="tools">${rows}</div>`;
+}
+
+/* ---------- Über mich ---------- */
+function viewUeber(){
+  return `<section class="intro"><div>
+      <div class="kick"><span class="sec-n">04</span><span class="subhead">Über mich</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Keine Herausforderung<br>ist zu unorthodox.</h2>
+    </div></section>
+  <div class="two">
+    <div class="prose">
+      <p>Ich bin Marcel, Grafikdesigner aus Köln. Studiert habe ich an der Media University Köln, damals noch HMKW.</p>
+      <p>Mein Schwerpunkt ist Branding in 2D und 3D: vom Logo über das ganze Markenbild bis zur Videoproduktion. Dazu kommen Albumcover, Print- und Out-of-Home-Kampagnen, 3D-Arbeiten und Piktogramme für Leichte Sprache.</p>
+      <p>Bei Zum goldenen Hirschen arbeite ich an Skincare- und Beauty-Marken. Nebenbei baue ich mir mit KI Werkzeuge, die mir Routinearbeit abnehmen.</p>
+      <p style="margin-top:22px" class="quote">„Keine Herausforderung ist zu unorthodox oder unkonventionell.“</p>
+    </div>
+    <div>
+      <dl class="meta">
+        <dt>Ort</dt><dd>Köln</dd>
+        <dt>Studium</dt><dd>Media University Köln (ehem. HMKW)</dd>
+        <dt>Agentur</dt><dd>Zum goldenen Hirschen</dd>
+        <dt>Schwerpunkt</dt><dd>Branding 2D &amp; 3D</dd>
+        <dt>Außerdem</dt><dd>Albumcover · Kampagnen · Editorial · UI/UX · Piktogramme · Video</dd>
+      </dl>
+      <p style="margin-top:22px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="#kontakt">Kontakt aufnehmen</a><a class="btn" href="#arbeiten">Arbeiten ansehen</a></p>
+    </div>
+  </div>`;
+}
+
+/* ---------- Kontakt ---------- */
+const MAIL = "rittau.marcel@gmail.com", TEL = "+49 160 96211952", TEL_SHOW = "+49 (0) 160 962 11 952";
+function viewKontakt(){
+  return `<section class="intro"><div>
+      <div class="kick"><span class="sec-n">05</span><span class="subhead">Kontakt</span></div>
+      <h2 class="display" id="h-main" tabindex="-1">Schreib mir.<br>Ich antworte schnell.</h2>
+      <p class="lead">Für Projekte, Fragen oder einfach Hallo. Am schnellsten geht es per E-Mail.</p>
+    </div></section>
+  <div class="two">
+    <div class="contact">
+      <span class="subhead">E-Mail</span><br>
+      <a class="bigmail" href="mailto:${MAIL}">${MAIL}</a>
+      <div class="row">
+        <a class="btn lime" href="mailto:${MAIL}?subject=${encodeURIComponent("Anfrage über dein Portfolio")}">E-Mail schreiben</a>
+        <button class="btn" type="button" id="copyMail">Adresse kopieren</button>
+      </div>
+      <div class="status" id="copyStatus" aria-live="polite"></div>
+      <svg class="corner" viewBox="0 0 170 170" aria-hidden="true"><path d="M170 20 A150 150 0 0 0 20 170 L170 170 Z" fill="#CDF443"/><circle cx="118" cy="118" r="20" fill="#FF6B1A"/></svg>
+    </div>
+    <div>
+      <dl class="meta">
+        <dt>Telefon</dt><dd><a href="tel:${TEL.replace(/\s/g,"")}">${TEL_SHOW}</a></dd>
+        <dt>Ort</dt><dd>Köln</dd>
+      </dl>
+    </div>
+  </div>`;
+}
+
+/* ---------- Router ---------- */
+async function route(){
+  const h = decodeURIComponent(location.hash.replace(/^#/,"")) || "arbeiten";
+  let [sec, slug] = h.split("/");
+  if (sec==="werkstatt") sec="tools";
+  let html;
+  if (sec==="kunden" && !KUNDEN){
+    let pw=null; try{ pw=sessionStorage.getItem("mr-kunden"); }catch(e){}
+    if (pw) await tryUnlock(pw, true);
+  }
+  switch(sec){
+    case "arbeiten": html = slug ? viewDetail("arbeiten",slug) : viewArbeiten(); break;
+    case "kunden":   html = !KUNDEN ? viewKunden() : (slug ? viewDetail("kunden",slug) : viewKunden()); break;
+    case "tools":    html = viewTools(); break;
+    case "ueber-mich": html = viewUeber(); break;
+    case "kontakt":  html = viewKontakt(); break;
+    default: html = viewNotFound(); sec = "";
+  }
+  renderNav(sec);
+  const v = $("view"); v.innerHTML = html;
+  document.title = `${({arbeiten:"Arbeiten",kunden:"Agentur Kunden",tools:TOOLS_NAME,"ueber-mich":"Über mich",kontakt:"Kontakt"})[sec]||"Portfolio"} – Marcel Rittau`;
+  wireEnc();
+  wire();
+}
+function focusHead(){ const hh=$("h-main"); if(hh){ hh.focus({preventScroll:true}); } }
+function wire(){
+  document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{
+    filter=b.dataset.filter; const y=scrollY; route().then(()=>{ scrollTo(0,y); document.querySelector(`[data-filter="${CSS.escape(filter)}"]`)?.focus(); });
+  }));
+  document.querySelectorAll("[data-embed]").forEach(b=>b.addEventListener("click",()=>{
+    const id=b.dataset.embed; embedOpen.has(id)?embedOpen.delete(id):embedOpen.add(id);
+    const y=scrollY; route().then(()=>{ scrollTo(0,y); document.querySelector(`[data-embed="${id}"]`)?.focus(); });
+  }));
+  const f=$("gateForm");
+  if (f){
+    if (gateErr) $("pw").focus();
+    f.addEventListener("submit", async e=>{
+      e.preventDefault();
+      const pw=$("pw").value; const btn=$("gateBtn");
+      if (!pw){ $("gateMsg").innerHTML=`<div class="error">Kein Passwort eingegeben. Trag das Passwort ein, das du von mir bekommen hast.</div>`; $("pw").focus(); return; }
+      btn.disabled=true; btn.textContent="Entschlüssele …";
+      const ok = await tryUnlock(pw);
+      await route();
+      if (ok) focusHead();
+    });
+  }
+  document.querySelectorAll("[data-zoom]").forEach(b=>b.addEventListener("click",()=>openZoom(+b.dataset.zoom)));
+  document.querySelectorAll("[data-load-embed]").forEach(b=>b.addEventListener("click",()=>{
+    const box=b.closest(".emb"); const f=document.createElement("iframe");
+    f.src=box.dataset.src; f.title="Eingebetteter Inhalt"; f.allow="autoplay; fullscreen; picture-in-picture"; f.allowFullscreen=true;
+    box.classList.add("on"); box.innerHTML=""; box.appendChild(f); f.focus();
+  }));
+  $("lockBtn")?.addEventListener("click",()=>{ KUNDEN=null; CK=null; try{sessionStorage.removeItem("mr-kunden")}catch(e){} route(); });
+  $("copyMail")?.addEventListener("click", async ()=>{
+    const s=$("copyStatus");
+    try{ await navigator.clipboard.writeText(MAIL); s.className="status ok"; s.textContent="Kopiert: "+MAIL; }
+    catch(e){ s.className="status bad"; s.textContent="Kopieren hat nicht geklappt, der Browser hat den Zugriff blockiert. Markiere die Adresse oben und kopiere sie selbst."; }
+  });
+}
+(function(){
+  const d=$("lb");
+  $("lbClose").onclick=()=>d.close();
+  $("lbPrev").onclick=()=>openZoom(lbIndex-1);
+  $("lbNext").onclick=()=>openZoom(lbIndex+1);
+  $("lbFit").onclick=()=>{ d.classList.toggle("full"); $("lbFit").textContent=d.classList.contains("full")?"Eingepasst anzeigen":"1:1 anzeigen"; };
+  d.addEventListener("keydown",e=>{ if(e.key==="ArrowLeft") openZoom(lbIndex-1); if(e.key==="ArrowRight") openZoom(lbIndex+1); });
+  d.addEventListener("close",()=>{ d.classList.remove("full"); $("lbFit").textContent="1:1 anzeigen"; $("lbImg").removeAttribute("src"); });
+})();
+addEventListener("hashchange", ()=>{ route().then(()=>{ scrollTo(0,0); focusHead(); }); });
+route();
+</script>
+</body>
+</html>
