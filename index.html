@@ -218,18 +218,17 @@ footer a{color:var(--ink-2);text-decoration:none} footer a:hover{text-decoration
 
 
 /* ---------- Formen im Stil des Logos ---------- */
-.blob{display:inline-block;color:var(--ink);overflow:visible;transition:transform .5s cubic-bezier(.3,1.7,.5,1)}
-.blob:hover,a:hover > .blob,a:hover .blob{transform:scale(1.06,.94) rotate(-3deg)}
+.blob{display:inline-block;color:var(--ink);overflow:visible}
+.blob.drag{cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none}
+.blob.drag.grabbing{cursor:grabbing}
 .b-hero{width:min(100%,220px);height:auto;margin-top:28px}
 .b-title{height:.62em;width:auto;vertical-align:baseline;margin-left:.08em;transform-origin:50% 100%}
-.b-title:hover{transform:scale(1.08,.9) rotate(4deg)}
 .b-gate{display:block;width:min(100%,180px);height:auto;margin-top:22px}
 .b-arrow{width:20px;height:auto;vertical-align:middle}
 .more i{display:inline-flex}
 .endmark{display:flex;justify-content:center;padding:24px 0 8px}
 .b-end{width:44px;height:auto}
 @media (max-width:760px){ .b-hero{width:140px;margin-top:16px} }
-@media (prefers-reduced-motion:reduce){ .blob{transition:none} .blob:hover{transform:none} }
 
 /* ---------- Breakpoints ---------- */
 @media (max-width:1100px){
@@ -402,6 +401,72 @@ function blob(name, cls="", label=""){
   return `<svg class="blob ${cls}" viewBox="-6 -6 ${w+12} ${h+12}" ${label?`role="img" aria-label="${esc(label)}"`:'aria-hidden="true"'}><path d="${d}" fill="currentColor" fill-rule="evenodd"/></svg>`;
 }
 
+/* ---------- Formen: neigen sich zum Cursor, lassen sich ziehen ---------- */
+const Goo = (() => {
+  const items = new Set(); let mouse = null, raf = 0;
+  const still = matchMedia("(prefers-reduced-motion: reduce)");
+  function parse(d){ const tk = d.match(/[MQZ]|-?\d*\.?\d+/g); const cmds = [], pts = [];
+    for (let i=0;i<tk.length;i++){ const t = tk[i]; if (/[MQZ]/.test(t)) cmds.push(t); else { pts.push(+t); cmds.push(null); } }
+    return {cmds, base: Float32Array.from(pts)}; }
+  function build(it, out){ let k = 0, s = ""; for (const c of it.cmds){ if (c) s += c; else { s += (k%2 ? " " : (s.endsWith("M")||s.endsWith("Q")||s.endsWith("Z")?"":" ")) + out[k].toFixed(1); k++; } } return s; }
+  function attach(svg){
+    const path = svg.querySelector("path"); if (!path) return;
+    const vb = svg.viewBox.baseVal, P = parse(path.getAttribute("d"));
+    let cx=0, cy=0, n=P.base.length/2; for (let i=0;i<P.base.length;i+=2){ cx+=P.base[i]; cy+=P.base[i+1]; } cx/=n; cy/=n;
+    const it = {svg, path, ...P, cx, cy, size: Math.max(vb.width, vb.height), out: new Float32Array(P.base.length),
+      L:[0,0], Lv:[0,0], D:[0,0], Dv:[0,0], g:[cx,cy], dragging:false, canDrag: svg.classList.contains("drag")};
+    items.add(it);
+    if (it.canDrag){
+      svg.addEventListener("pointerdown", e => {
+        e.preventDefault(); svg.setPointerCapture(e.pointerId); svg.classList.add("grabbing");
+        const q = local(it, e.clientX, e.clientY); it.g = q; it.start = q; it.dragging = true; kick();
+      });
+      const end = e => { if (!it.dragging) return; it.dragging = false; svg.classList.remove("grabbing"); kick(); };
+      svg.addEventListener("pointerup", end); svg.addEventListener("pointercancel", end);
+      svg.addEventListener("pointermove", e => { if (!it.dragging) return; const q = local(it, e.clientX, e.clientY);
+        let dx = q[0]-it.start[0], dy = q[1]-it.start[1]; const m = Math.hypot(dx,dy), lim = it.size*.55;
+        const f = 1/(1+m/lim); it.D = [dx*f, dy*f]; it.Dv = [0,0]; kick(); });
+    }
+  }
+  function local(it, x, y){ const m = it.svg.getScreenCTM(); if (!m) return [it.cx,it.cy]; const p = new DOMPoint(x,y).matrixTransform(m.inverse()); return [p.x,p.y]; }
+  function step(){
+    raf = 0; let busy = false;
+    for (const it of items){
+      if (!it.svg.isConnected){ items.delete(it); continue; }
+      const r = it.svg.getBoundingClientRect(); if (r.bottom < -50 || r.top > innerHeight+50) continue;
+      // Ziel fürs Neigen: Richtung Cursor, stärker je näher
+      let tx = 0, ty = 0, dir = [0,0];
+      if (mouse && !still.matches && !it.dragging){
+        const q = local(it, mouse[0], mouse[1]); const dx = q[0]-it.cx, dy = q[1]-it.cy, dl = Math.hypot(dx,dy)||1;
+        const px = Math.hypot(mouse[0]-(r.left+r.width/2), mouse[1]-(r.top+r.height/2));
+        const a = it.size*.09*Math.pow(Math.max(0,1-px/900),1.6); tx = dx/dl*a; ty = dy/dl*a;
+      }
+      // Federn
+      const k1 = .09, c1 = .22; it.Lv[0] += (tx-it.L[0])*k1 - it.Lv[0]*c1; it.Lv[1] += (ty-it.L[1])*k1 - it.Lv[1]*c1;
+      it.L[0] += it.Lv[0]; it.L[1] += it.Lv[1];
+      if (!it.dragging){ const k2 = .14, c2 = still.matches ? .5 : .1;
+        it.Dv[0] += -it.D[0]*k2 - it.Dv[0]*c2; it.Dv[1] += -it.D[1]*k2 - it.Dv[1]*c2; it.D[0] += it.Dv[0]; it.D[1] += it.Dv[1]; }
+      const moving = Math.abs(it.Lv[0])+Math.abs(it.Lv[1])+Math.abs(it.Dv[0])+Math.abs(it.Dv[1]) > .01 || it.dragging || Math.abs(it.D[0])+Math.abs(it.D[1]) > .05;
+      // Punkte verformen
+      const Ll = Math.hypot(it.L[0],it.L[1]), lx = Ll ? it.L[0]/Ll : 0, ly = Ll ? it.L[1]/Ll : 0, sig2 = 2*Math.pow(it.size*.38,2);
+      for (let i=0;i<it.base.length;i+=2){
+        const x = it.base[i], y = it.base[i+1]; let ox = 0, oy = 0;
+        if (Ll > .01){ const vx = x-it.cx, vy = y-it.cy, vl = Math.hypot(vx,vy)||1; const w = Math.max(0,(vx*lx+vy*ly)/vl); const ww = w*w; ox += it.L[0]*ww; oy += it.L[1]*ww; }
+        if (it.D[0] || it.D[1]){ const gx = x-it.g[0], gy = y-it.g[1]; const w = Math.exp(-(gx*gx+gy*gy)/sig2); ox += it.D[0]*(w*.9+.12); oy += it.D[1]*(w*.9+.12); }
+        it.out[i] = x+ox; it.out[i+1] = y+oy;
+      }
+      it.path.setAttribute("d", build(it, it.out));
+      if (moving || (mouse && Ll > .01)) busy = busy || moving;
+    }
+    if (busy) kick();
+  }
+  function kick(){ if (!raf) raf = requestAnimationFrame(step); }
+  addEventListener("pointermove", e => { if (e.pointerType !== "touch"){ mouse = [e.clientX, e.clientY]; kick(); } }, {passive:true});
+  addEventListener("scroll", kick, {passive:true});
+  document.addEventListener("pointerleave", () => { mouse = null; kick(); });
+  return { scan(){ document.querySelectorAll("svg.blob").forEach(svg => { if (!svg.dataset.goo){ svg.dataset.goo = 1; attach(svg); } }); kick(); } };
+})();
+
 /* ---------- Navigation ---------- */
 const ROUTES = [
   ["arbeiten","Arbeiten"],["kunden","Agentur Kunden"],["tools",TOOLS_NAME],["ueber-mich","Über mich"],["kontakt","Kontakt"]
@@ -454,7 +519,7 @@ function viewArbeiten(){
   const list = filter==="Alle" ? ARBEITEN : ARBEITEN.filter(p=>p.bereiche.includes(filter));
   const cnt = b => b==="Alle" ? ARBEITEN.length : ARBEITEN.filter(p=>p.bereiche.includes(b)).length;
   return `<section class="wrap g12 hero" aria-labelledby="h-main">
-      <div class="side"><span class="label">Hallöchen :)</span><span class="label">Schön, dass ihr mich gefunden habt.</span>${blob("kamm","b-hero")}</div>
+      <div class="side"><span class="label">Hallöchen :)</span><span class="label">Schön, dass ihr mich gefunden habt.</span>${blob("kamm","b-hero drag")}</div>
       <h1 class="statement" id="h-main" tabindex="-1">Marcel Rittau, Grafikdesigner aus Köln. <span class="soft">Branding in 2D und 3D, vom Logo bis zum ganzen Markenbild.</span></h1>
     </section>
     <section class="wrap" aria-label="Arbeiten">
@@ -516,7 +581,7 @@ function viewDetail(kind, slug){
         ${p.untertitel?`<p class="sub">${esc(p.untertitel)}</p>`:""}
       </div>
       <dl class="g12 dmeta">${meta.map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>
-      <div class="flow">${blocksHTML(p)}<div class="endmark">${blob("bohne","b-end")}</div></div>
+      <div class="flow">${blocksHTML(p)}<div class="endmark">${blob("bohne","b-end drag")}</div></div>
       <nav class="pn" aria-label="Weitere Projekte">
         <a href="#${kind}/${esc(prev.slug)}"><span class="label">← Vorheriges</span><b>${esc(prev.titel)}</b></a>
         <a href="#${kind}/${esc(next.slug)}"><span class="label">Nächstes →</span><b>${esc(next.titel)}</b></a>
@@ -602,7 +667,7 @@ async function openZoom(i){
 let lbIndex = 0;
 
 function viewNotFound(kind){
-  return `<section class="wrap g12 phead"><h2 class="ptitle" id="h-main" tabindex="-1">Das gibt es hier nicht. ${blob("wurm","b-title")}</h2>
+  return `<section class="wrap g12 phead"><h2 class="ptitle" id="h-main" tabindex="-1">Das gibt es hier nicht. ${blob("wurm","b-title drag")}</h2>
     <p class="lead">Der Link zeigt auf ein Projekt, das es nicht (mehr) gibt. <a href="#${kind||"arbeiten"}">Zur Übersicht</a></p></section>`;
 }
 
@@ -630,7 +695,7 @@ function viewKundenGate(err){
       <p class="lead">Arbeiten für Kund:innen zeige ich nicht öffentlich. Mit dem Passwort, das du von mir bekommen hast, siehst du sie hier.</p>
     </section>
     <section class="wrap"><div class="g12 gate">
-      <div class="tl"><span class="label"><b>02/</b> Zugang</span>${blob("wolke","b-gate")}</div>
+      <div class="tl"><span class="label"><b>02/</b> Zugang</span>${blob("wolke","b-gate drag")}</div>
       <form id="gateForm" novalidate>
         <label class="label" for="pw">Passwort</label>
         <div class="row">
@@ -645,7 +710,7 @@ function viewKunden(){
   if (!KUNDEN) return viewKundenGate(gateErr);
   const n = KUNDEN.length;
   return `<section class="wrap g12 phead">
-      <h2 class="ptitle" id="h-main" tabindex="-1">Agentur Kunden ${blob("wolke","b-title")}</h2>
+      <h2 class="ptitle" id="h-main" tabindex="-1">Agentur Kunden ${blob("wolke","b-title drag")}</h2>
       <p class="lead">${n} ${n===1?"Projekt":"Projekte"} aus der Agenturarbeit. Bitte nicht weitergeben.</p>
     </section>
     <section class="wrap" aria-label="Kundenprojekte">
@@ -699,7 +764,7 @@ function viewTools(){
   });
   if (open) parts.push(`</div></div>`);
   return `<section class="wrap g12 phead">
-      <h2 class="ptitle" id="h-main" tabindex="-1">${esc(TOOLS_NAME)} ${blob("tropfen","b-title")}</h2>
+      <h2 class="ptitle" id="h-main" tabindex="-1">${esc(TOOLS_NAME)} ${blob("tropfen","b-title drag")}</h2>
       <p class="lead">Werkzeuge, die ich zusammen mit einer KI gebaut habe, Schritt für Schritt aus echten Aufgaben heraus. Keine großen Software-Projekte, sondern Abkürzungen für den Alltag.</p>
     </section>
     <section class="wrap">${parts.join("")}</section>`;
@@ -708,7 +773,7 @@ function viewTools(){
 /* ---------- Über mich ---------- */
 function viewUeber(){
   return `<section class="wrap g12 hero">
-      <div class="side"><span class="label"><b>04/</b> Über mich</span>${blob("wurm","b-hero")}</div>
+      <div class="side"><span class="label"><b>04/</b> Über mich</span>${blob("wurm","b-hero drag")}</div>
       <h2 class="statement" id="h-main" tabindex="-1">„Keine Herausforderung ist zu unorthodox oder unkonventionell.“</h2>
     </section>
     <section class="wrap">
@@ -734,7 +799,7 @@ function viewUeber(){
 const MAIL = "rittau.marcel@gmail.com", TEL = "+49 160 96211952", TEL_SHOW = "+49 (0) 160 962 11 952";
 function viewKontakt(){
   return `<section class="wrap g12 phead">
-      <h2 class="ptitle" id="h-main" tabindex="-1">Kontakt ${blob("bohne","b-title")}</h2>
+      <h2 class="ptitle" id="h-main" tabindex="-1">Kontakt ${blob("bohne","b-title drag")}</h2>
       <p class="lead">Für Projekte, Fragen oder einfach Hallo. Am schnellsten geht es per E-Mail.</p>
     </section>
     <section class="wrap">
@@ -780,6 +845,7 @@ async function route(){
   wireEnc();
   wireKTiles();
   wire();
+  Goo.scan();
 }
 function focusHead(){ const hh=$("h-main"); if(hh){ hh.focus({preventScroll:true}); } }
 function wire(){
