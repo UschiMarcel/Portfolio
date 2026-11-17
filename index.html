@@ -89,11 +89,13 @@ main{min-height:70vh}
 .fbtn[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 
 /* ---------- Projektliste ---------- */
-.plist{border-bottom:var(--rule)}
-.prow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col);padding:22px 0 26px;border-top:var(--rule);text-decoration:none;align-items:stretch}
-.prow .pnum{grid-column:1/2;padding-top:2px}
-.prow .pimg{grid-column:2/9}
-.prow .pinfo{grid-column:9/13;display:flex;flex-direction:column;gap:12px;min-width:0}
+.plist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:var(--rule)}
+.prow{display:grid;grid-template-columns:minmax(0,68fr) minmax(0,32fr);column-gap:20px;padding:22px 0 26px;border-top:var(--rule);text-decoration:none;align-items:stretch}
+.plist .prow:nth-child(odd){padding-right:var(--col)}
+.plist .prow:nth-child(even){padding-left:var(--col);border-left:var(--rule)}
+.prow .pimg .media{aspect-ratio:1/1}
+.prow .pinfo{display:flex;flex-direction:column;gap:12px;min-width:0}
+.prow .pnum{display:block;margin-bottom:2px}
 .prow h3{font:600 clamp(22px,2vw,30px)/1.05 var(--sans);letter-spacing:-.03em}
 .prow p{font-size:14.5px;color:var(--ink-2);max-width:38ch}
 .pmeta{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:6px 0 0;font:12px/1.4 var(--mono)}
@@ -233,7 +235,9 @@ footer a{color:var(--ink-2);text-decoration:none} footer a:hover{text-decoration
 /* ---------- Breakpoints ---------- */
 @media (max-width:1100px){
   :root{--gut:24px;--col:18px}
-  .prow .pimg{grid-column:2/8} .prow .pinfo{grid-column:8/13}
+  .plist{grid-template-columns:minmax(0,1fr)}
+  .plist .prow:nth-child(n){padding-left:0;padding-right:0;border-left:0}
+  .prow{grid-template-columns:minmax(0,52fr) minmax(0,48fr);column-gap:var(--col)}
   .txt .tb{grid-column:4/13}
   .dmeta > div{grid-column:span 6}
   .trow .thead{grid-column:2/6} .trow .tbody{grid-column:6/13} .trow .tact{grid-column:6/13;flex-direction:row;align-items:center;margin-top:14px;justify-content:flex-start}
@@ -249,8 +253,7 @@ footer a{color:var(--ink-2);text-decoration:none} footer a:hover{text-decoration
   .nav a:last-child{border-right:0}
   .hero{padding-top:40px;padding-bottom:48px}
   .hero .side,.statement{grid-column:1/-1}
-  .prow .pnum{grid-column:1/-1;margin-bottom:10px}
-  .prow .pimg,.prow .pinfo{grid-column:1/-1}
+  .prow{grid-template-columns:minmax(0,1fr)}
   .prow .pinfo{margin-top:14px}
   .dhero .ptitle,.dhero .sub{grid-column:1/-1}
   .dmeta > div{grid-column:1/-1}
@@ -501,9 +504,9 @@ function tiles(list, kind){
       p.platzhalter && ["Status", "Platzhalter"]
     ].filter(Boolean);
     return `<a class="prow" href="#${kind}/${esc(p.slug)}">
-      <span class="pnum label">${pad(n)}/</span>
       <div class="pimg">${kind==="kunden" ? kCover(p, n-1) : mediaBox(cov, n-1, cov||"kein Bild hinterlegt", p.titel)}</div>
       <div class="pinfo">
+        <span class="pnum label">${pad(n)}/</span>
         <h3>${esc(p.titel)}</h3>
         ${p.untertitel?`<p>${esc(p.untertitel)}</p>`:""}
         ${meta.length?`<dl class="pmeta">${meta.map(([a,b])=>`<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl>`:""}
