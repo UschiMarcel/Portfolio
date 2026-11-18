@@ -285,6 +285,17 @@ a.label.more:hover{color:var(--ink)}
   .b-side{width:120px}
 }
 
+
+/* ---------- Lebenslauf ---------- */
+.prose.wide{grid-column:4/13}
+.cv{list-style:none;margin:0;padding:0;border-top:var(--hair)}
+.cv li{display:grid;grid-template-columns:190px minmax(0,1fr);gap:20px;padding:14px 0 15px;border-bottom:var(--hair)}
+.cvd{font:500 11.5px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+.cv b{display:block;font:600 19px/1.2 var(--sans);letter-spacing:-.02em}
+.cvo{display:block;font:500 12px/1.5 var(--mono);color:var(--ink-2);margin-top:3px}
+.cv p{font-size:15px!important;line-height:1.5!important;color:var(--ink-2);margin-top:8px!important;max-width:68ch}
+@media (max-width:760px){ .prose.wide{grid-column:1/-1} .cv li{grid-template-columns:1fr;gap:4px} }
+
 /* ---------- Breakpoints ---------- */
 @media (max-width:1100px){
   :root{--gut:24px;--col:18px}
@@ -610,7 +621,7 @@ function viewStart(){
     <section class="wrap sec" aria-labelledby="s-kun">
       <div class="shrow"><span class="label" id="s-kun"><b>02/</b> Agentur Kunden</span><a class="label more" href="#kunden">Mit Passwort ansehen <i>${blob("pfeil","b-arrow")}</i></a></div>
       <div class="g12 secbody">
-        <div class="tl"><p class="intro">Social Media und Kampagnen für Beauty- und Skincare-Marken, entstanden in der Agentur. Die ganzen Projekte zeige ich nur mit Passwort.</p></div>
+        <div class="tl"><p class="intro">Social Media und Kampagnen für Beauty- und Skincare-Marken, entstanden 2022 bis 2024 bei Zum goldenen Hirschen. Die ganzen Projekte zeige ich nur mit Passwort.</p></div>
         <ul class="klist" role="list">${START.kunden.map(k=>`<li>${esc(k)}</li>`).join("")}</ul>
         <div class="kfig">${START.kundenBilder.map(k=>`<figure><img src="${esc(k.src)}" alt="${esc(k.t)}" loading="lazy"><figcaption class="label">${esc(k.t)}</figcaption></figure>`).join("")}</div>
       </div>
@@ -629,7 +640,7 @@ function viewStart(){
       <div class="g12 secbody">
         <div class="tl">${blob("wurm","b-side drag")}</div>
         <div class="quote"><p class="qbig">„Keine Herausforderung ist zu unorthodox oder unkonventionell.“</p>
-          <p class="qsmall">Ich habe an der Media University Köln studiert und bin seit Februar 2025 bei nexum. in der Unit Content. Dort arbeite ich an Skincare- und Beauty-Marken. Mein Schwerpunkt ist Branding in 2D und 3D.</p></div>
+          <p class="qsmall">Seit Februar 2025 bin ich Junior Content Designer bei der nexum AG in der Unit Content, daneben selbstständig als rittau design. Studiert habe ich an der Media University Köln. Mein Schwerpunkt ist Branding in 2D und 3D.</p></div>
       </div>
     </section>
 
@@ -903,26 +914,54 @@ function viewTools(){
 
 /* ---------- Über mich ---------- */
 function viewUeber(){
+  const cv = (rows) => `<ol class="cv" role="list">${rows.map(r=>`<li><span class="cvd">${r[0]}</span><div><b>${r[1]}</b><span class="cvo">${r[2]}</span>${r[3]?`<p>${r[3]}</p>`:""}</div></li>`).join("")}</ol>`;
   return `<section class="wrap g12 hero">
-      <div class="side"><span class="label"><b>04/</b> Über mich</span>${blob("wurm","b-hero drag")}</div>
+      <div class="side"><span class="label"><b>04/</b> Über mich</span><span class="label">Im Internet zuhause seit 2012 :)</span>${blob("wurm","b-hero drag")}</div>
       <h2 class="statement" id="h-main" tabindex="-1">„Keine Herausforderung ist zu unorthodox oder unkonventionell.“</h2>
     </section>
     <section class="wrap">
       <div class="g12 about">
         <span class="label tl">(01) Kurz</span>
         <div class="prose">
-          <p>Ich bin Marcel, Grafikdesigner aus Köln. Studiert habe ich an der Media University Köln, damals noch HMKW.</p>
-          <p>Mein Schwerpunkt ist Branding in 2D und 3D: vom Logo über das ganze Markenbild bis zur Videoproduktion. Dazu kommen Albumcover, Print- und Out-of-Home-Kampagnen, 3D-Arbeiten und Piktogramme für Leichte Sprache.</p>
-          <p>Seit Februar 2025 bin ich bei nexum. in der Unit Content und arbeite dort an Skincare- und Beauty-Marken. Nebenbei baue ich mir mit KI Werkzeuge, die mir Routinearbeit abnehmen.</p>
+          <p>Ich bin Marcel, Grafikdesigner aus Köln. Seit Februar 2025 arbeite ich als Junior Content Designer bei der nexum AG in der Unit Content. Daneben gestalte ich seit 2020 selbstständig unter dem Namen rittau design.</p>
+          <p>Studiert habe ich Grafikdesign und visuelle Kommunikation an der Media University Köln, damals noch HMKW. Mein Schwerpunkt ist Branding in 2D und 3D: vom Logo über das ganze Markenbild bis zur Videoproduktion.</p>
+          <p>Im Internet bin ich seit 2012 zuhause. Mit 13 habe ich meinen ersten Blog über unsere zwei Jahre in Kalifornien geschrieben, mit meinen ersten Versuchen hinter der Kamera. Heute baue ich mir nebenbei mit KI Werkzeuge, die mir Routinearbeit abnehmen.</p>
         </div>
       </div>
       <dl class="g12 dmeta">
-        <div><dt>Ort</dt><dd>Köln</dd></div>
-        <div><dt>Studium</dt><dd>Media University Köln (ehem. HMKW)</dd></div>
-        <div><dt>Agentur</dt><dd>nexum. · Unit Content · seit Feb. 2025</dd></div>
-        <div><dt>Schwerpunkt</dt><dd>Branding 2D &amp; 3D · Albumcover · Kampagnen · Editorial · UI/UX · Video</dd></div>
+        <div><dt>Aktuell</dt><dd>Junior Content Designer · nexum AG · seit Feb. 2025</dd></div>
+        <div><dt>Selbstständig</dt><dd>rittau design · seit Juni 2020</dd></div>
+        <div><dt>Studium</dt><dd>B.A. Grafikdesign und visuelle Kommunikation · Media University Köln</dd></div>
+        <div><dt>Sprachen</dt><dd>Deutsch · Englisch (C2, Cambridge)</dd></div>
       </dl>
-      <p style="padding:28px 0 64px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="#kontakt">Kontakt aufnehmen</a><a class="btn" href="#arbeiten">Arbeiten ansehen</a></p>
+      <div class="g12 about">
+        <span class="label tl">(02) Erfahrung</span>
+        <div class="prose wide">${cv([
+          ["Feb. 2025 – heute","Junior Content Designer","nexum AG · Köln · Vollzeit, hybrid","Unit Content."],
+          ["Juni 2020 – heute","Design &amp; Art Direction","rittau design · selbstständig","Markenentwicklung und -positionierung, Gestaltung von Websites, Grafiken und Visuals für Social Media, Umsetzung kreativer Konzepte."],
+          ["März – Dez. 2024","Berufliche Auszeit","Köln","Abschlussphase des Bachelors, Vertiefung in Markenentwicklung (2D und 3D), Strategie und Brand Images."],
+          ["Jan. 2023 – März 2024","Art Direction · Werkstudium","Zum goldenen Hirschen · Köln","Für L'Oréal Paris, Kiehl's, Garnier und M2 Beauté: Fotoshootings planen und umsetzen, Still- und Motion-Assets für Facebook, Instagram und Pinterest, TV-Tag-Ons, Bildbearbeitung, Banner für YouTube und Facebook."],
+          ["Juli – Dez. 2022","Art Direction · Praktikum","Zum goldenen Hirschen · Köln",""],
+          ["Sep. 2021 – Juni 2022","Content Creator","SYN Marketing · befristet","Grafiken für die Online-Präsenz der Playpaintball-Parks und ein Plan, alle Einweisungen auf einheitliche Videoeinweisungen umzustellen."],
+          ["Mai – Juli 2021","Grafikdesigner · Praktikum","SYN Marketing · Mechernich","Konzept und Dreh einer Videoeinweisung für den Playpaintball-Park „Revolution“, Monitorgrafiken in After Effects und Photoshop, Planung, Scripting, Storyboards und Shotlisten."]
+        ])}</div>
+      </div>
+      <div class="g12 about">
+        <span class="label tl">(03) Ausbildung</span>
+        <div class="prose wide">${cv([
+          ["seit 2019","B.A. Grafikdesign und visuelle Kommunikation","Media University Köln (ehem. HMKW)",""],
+          ["2017","Abitur","Gymnasium am Turmhof",""],
+          ["2012 – 2014","Middle und High School","Niguel Hills Middle School · Dana Hills High School · Kalifornien",""]
+        ])}</div>
+      </div>
+      <div class="g12 about">
+        <span class="label tl">(04) Engagement</span>
+        <div class="prose wide">${cv([
+          ["Sep. 2017 – März 2018","Grafikdesigner &amp; Englischlehrer · ehrenamtlich","Window to the World School · Bali, Indonesien","Social-Media-Auftritt der Schule aufgebaut und betreut, Bild- und Videomaterial für die Foundation, Poster, Flyer und Sticker, Englischunterricht für verschiedene Altersgruppen."],
+          ["2017","Englisch C2 (CEFR)","University of Cambridge",""]
+        ])}</div>
+      </div>
+      <p style="padding:28px 0 64px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="#kontakt">Kontakt aufnehmen</a><a class="btn" href="https://www.linkedin.com/in/marcel-rittau-4a46b4281" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="#arbeiten">Arbeiten ansehen</a></p>
     </section>`;
 }
 
