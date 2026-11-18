@@ -240,9 +240,10 @@ footer a{color:var(--ink-2);text-decoration:none} footer a:hover{text-decoration
 
 
 /* ---------- Startseite ---------- */
-.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;padding:14px 0 0}
+.strip{display:flex;gap:12px;padding:14px 0 0;align-items:flex-start}
 .sfig{display:flex;flex-direction:column;gap:8px;text-decoration:none}
-.sfig img{display:block;width:100%;height:auto;background:var(--paper-2)}
+.sfig{min-width:0}
+.sfig img,.sfig video{display:block;width:100%;height:auto;background:var(--paper-2)}
 .sfig:hover .label b{text-decoration:underline;text-underline-offset:3px}
 .sec{padding-top:96px}
 .secbody{padding-top:22px;align-items:start;row-gap:24px}
@@ -260,7 +261,8 @@ a.label.more:hover{color:var(--ink)}
 .tsum li a{grid-template-columns:56px minmax(0,1fr) auto}
 .klist{grid-column:4/9;list-style:none;margin:0;padding:0;border-top:var(--hair)}
 .klist li{font:500 clamp(20px,2vw,30px)/1.05 var(--sans);letter-spacing:-.03em;padding:14px 0 13px;border-bottom:var(--hair)}
-.kfig{grid-column:9/13;margin:0;display:flex;flex-direction:column;gap:8px}
+.kfig{grid-column:9/13;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kfig figure{margin:0;display:flex;flex-direction:column;gap:8px}
 .kfig img{display:block;width:100%;height:auto}
 .quote{grid-column:4/12;display:flex;flex-direction:column;gap:18px}
 .qbig{font:500 clamp(26px,3vw,46px)/1.08 var(--sans);letter-spacing:-.035em}
@@ -270,12 +272,12 @@ a.label.more:hover{color:var(--ink)}
 .hoverprev.on{opacity:1}
 .hoverprev img{display:block;width:100%;height:auto}
 @media (max-width:1100px){
-  .strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .strip{flex-wrap:wrap} .sfig{flex-basis:calc(33.333% - 8px)!important;flex-grow:0!important}
   .klist{grid-column:4/13} .kfig{grid-column:4/10}
   .quote{grid-column:4/13}
 }
 @media (max-width:760px){
-  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sfig{flex-basis:calc(50% - 6px)!important}
   .sec{padding-top:64px}
   .secbody .tl,.ilist,.tsum,.klist,.kfig,.quote{grid-column:1/-1}
   .ilist li a{grid-template-columns:40px minmax(0,1fr)} .ilist .ib,.ilist .ia{display:none}
@@ -570,14 +572,17 @@ function tiles(list, kind){
 /* ---------- Startseite ---------- */
 const START = {
   ausschnitte: [
-    {src:"bilder/yat-kha/cover.jpg", t:"We will never Die", k:"Print", href:"#arbeiten/yat-kha"},
-    {src:"bilder/start/kunde-kiehls.jpg", t:"Kiehl's", k:"Kunde", href:"#kunden"},
-    {src:"bilder/leichte-sprache/cover.jpg", t:"Leichte Sprache", k:"Piktogramme", href:"#arbeiten/leichte-sprache"},
-    {src:"bilder/start/kunde-mixa.jpg", t:"Mixa", k:"Kunde", href:"#kunden"},
-    {src:"bilder/ooh-gott/cover.jpg", t:"ooh gott", k:"Kampagne", href:"#arbeiten/ooh-gott"},
-    {src:"bilder/skola/cover.jpg", t:"skola", k:"UI/UX", href:"#arbeiten/skola"}
+    {src:"bilder/yat-kha/cover.jpg", ar:1.28, t:"We will never Die", k:"Print", href:"#arbeiten/yat-kha"},
+    {video:"bilder/start/garnier-vegan.mp4", src:"bilder/start/garnier-vegan.jpg", ar:1, t:"Garnier", k:"Kunde", href:"#kunden"},
+    {src:"bilder/leichte-sprache/cover.jpg", ar:1.28, t:"Leichte Sprache", k:"Piktogramme", href:"#arbeiten/leichte-sprache"},
+    {src:"bilder/start/kiehls-rueckblick.jpg", ar:0.8, t:"Kiehl's", k:"Kunde", href:"#kunden"},
+    {src:"bilder/ooh-gott/cover.jpg", ar:1.28, t:"ooh gott", k:"Kampagne", href:"#arbeiten/ooh-gott"},
+    {src:"bilder/skola/cover.jpg", ar:1.28, t:"skola", k:"UI/UX", href:"#arbeiten/skola"}
   ],
-  kundenBild: {src:"bilder/start/kunde-loreal-paris.jpg", t:"L'Oréal Paris · Social Media"},
+  kundenBilder: [
+    {src:"bilder/start/loreal-valentine.jpg", t:"L'Oréal Paris"},
+    {src:"bilder/start/kiehls-seren.jpg", t:"Kiehl's"}
+  ],
   kunden: ["Garnier","L'Oréal Paris","L'Oréal Paris Men Expert","Kiehl's","Mixa","M2 Beauté"]
 };
 function viewStart(){
@@ -588,7 +593,9 @@ function viewStart(){
     </section>
     <section class="wrap" aria-label="Ausschnitte">
       <div class="shrow"><span class="label"><b>00/</b> Ausschnitte</span><span class="label">Arbeiten und Kunden</span></div>
-      <div class="strip">${START.ausschnitte.map(a=>`<a class="sfig" href="${a.href}"><img src="${esc(a.src)}" alt="${esc(a.t)}" loading="lazy"><span class="label"><b>${esc(a.t)}</b> · ${esc(a.k)}</span></a>`).join("")}</div>
+      <div class="strip">${START.ausschnitte.map(a=>`<a class="sfig" href="${a.href}" style="flex:${a.ar} 1 0">${a.video
+      ? `<video src="${esc(a.video)}" poster="${esc(a.src)}" muted loop playsinline autoplay preload="metadata" aria-label="${esc(a.t)} – Animation" data-motion></video>`
+      : `<img src="${esc(a.src)}" alt="${esc(a.t)}" loading="lazy">`}<span class="label"><b>${esc(a.t)}</b> · ${esc(a.k)}</span></a>`).join("")}</div>
     </section>
 
     <section class="wrap sec" aria-labelledby="s-arb">
@@ -605,7 +612,7 @@ function viewStart(){
       <div class="g12 secbody">
         <div class="tl"><p class="intro">Social Media und Kampagnen für Beauty- und Skincare-Marken. Die ganzen Projekte zeige ich nur mit Passwort.</p></div>
         <ul class="klist" role="list">${START.kunden.map(k=>`<li>${esc(k)}</li>`).join("")}</ul>
-        <figure class="kfig"><img src="${esc(START.kundenBild.src)}" alt="${esc(START.kundenBild.t)}" loading="lazy"><figcaption class="label">${esc(START.kundenBild.t)}</figcaption></figure>
+        <div class="kfig">${START.kundenBilder.map(k=>`<figure><img src="${esc(k.src)}" alt="${esc(k.t)}" loading="lazy"><figcaption class="label">${esc(k.t)}</figcaption></figure>`).join("")}</div>
       </div>
     </section>
 
@@ -974,6 +981,7 @@ async function route(){
 }
 function focusHead(){ const hh=$("h-main"); if(hh){ hh.focus({preventScroll:true}); } }
 function wire(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video[data-motion]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); });
   const hp = $("hoverprev");
   if (hp && matchMedia("(hover: hover)").matches){
     const im = hp.querySelector("img");
