@@ -261,7 +261,7 @@ a.label.more:hover{color:var(--ink)}
 .ia{display:flex;justify-content:flex-end;opacity:0;transition:opacity .15s}
 .ilist a:hover .ia,.ilist a:focus-visible .ia{opacity:1}
 .ilist a:hover b,.tsum a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
-.tsum li a{grid-template-columns:56px minmax(0,1fr) auto}
+.tsum li a{grid-template-columns:56px 44px minmax(0,1fr) auto;align-items:center}
 .klist{grid-column:4/9;list-style:none;margin:0;padding:0;border-top:var(--hair)}
 .klist li{font:500 clamp(20px,2vw,30px)/1.05 var(--sans);letter-spacing:-.03em;padding:14px 0 13px;border-bottom:var(--hair)}
 .kfig{grid-column:9/13;display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -284,7 +284,7 @@ a.label.more:hover{color:var(--ink)}
   .sec{padding-top:64px}
   .secbody .tl,.ilist,.tsum,.klist,.kfig,.quote{grid-column:1/-1}
   .ilist li a{grid-template-columns:40px minmax(0,1fr)} .ilist .ib,.ilist .ia{display:none}
-  .tsum li a{grid-template-columns:40px minmax(0,1fr)} .tsum .ib{display:none}
+  .tsum li a{grid-template-columns:40px 40px minmax(0,1fr)} .tsum .ib{display:none}
   .b-side{width:120px}
 }
 
@@ -298,6 +298,15 @@ a.label.more:hover{color:var(--ink)}
 .cvo{display:block;font:500 12px/1.5 var(--mono);color:var(--ink-2);margin-top:3px}
 .cv p{font-size:15px!important;line-height:1.5!important;color:var(--ink-2);margin-top:8px!important;max-width:68ch}
 @media (max-width:760px){ .prose.wide{grid-column:1/-1} .cv li{grid-template-columns:1fr;gap:4px} }
+
+
+/* ---------- Tool-Icons ---------- */
+.tname{display:flex;align-items:center;gap:14px}
+.ticon{flex:none;width:52px;height:52px;border:var(--rule);display:grid;place-items:center;background:var(--paper)}
+.ticon svg{width:38px;height:38px;display:block}
+.ticon.sm{width:44px;height:44px}
+.ticon.sm svg{width:32px;height:32px}
+@media (max-width:760px){ .ticon.sm{width:40px;height:40px} .ticon.sm svg{width:28px;height:28px} }
 
 /* ---------- Breakpoints ---------- */
 @media (max-width:1100px){
@@ -413,11 +422,10 @@ const ARBEITEN = [
 const SKINCARE_URL = "https://uschimarcel.github.io/UschisSkincare/";
 const TOOLS = [
   { gruppe:"Web-Apps" },
-  { id:"skincare", titel:"Uschi's Skincare Guide", tags:[["Web-App","lime"],["Passwortgeschützt","lav"]], feat:true,
+  { id:"skincare", titel:"Uschi Skin", tags:[["Web-App","lime"]], feat:true,
     text:"Aus einer Produktliste wird eine persönliche Morgen- und Abendroutine: Hauttyp und Baustellen wählen, Erfahrung angeben, Budget einstellen. Die Seite warnt bei Wirkstoffen, die sich nicht vertragen, und schlägt Alternativen vor.",
     facts:["Routine in der richtigen Reihenfolge","Budget-Regler in 0,5-€-Schritten","Konflikt-Warnungen","Export als Bild oder Text","Dunkelmodus","Produkte als JSON"],
-    icon:"skincare", aktionen:[{typ:"embed",label:"Hier ausprobieren"},{typ:"link",label:"In neuem Tab öffnen",href:SKINCARE_URL}],
-    hinweis:"Die Seite hat ein eigenes Passwort. Das bekommst du von mir." },
+    icon:"skincare", aktionen:[{typ:"embed",label:"Hier ausprobieren"},{typ:"link",label:"In neuem Tab öffnen",href:SKINCARE_URL}] },
   { id:"loop-lab", titel:"Loop Lab", tags:[["Web-App","lime"],["100 % lokal","org"]],
     text:"MP4 rein. GIF raus. Ein Exporttool für Banner-GIFs, das komplett im Browser läuft. Erst prüfst du die Vorschau an einem Beispiel, dann läuft der ganze Stapel mit denselben Einstellungen.",
     facts:["Zielgröße automatisch, z. B. max. 300 KB","Geschützte Markenfarben bleiben exakt","Ordner beobachten","ZIP oder Zielordner","eigener GIF89a-/LZW-Encoder","offline, kein Upload"],
@@ -583,6 +591,11 @@ function tiles(list, kind){
   }).join("")}</div>`;
 }
 
+/* ---------- Tool-Icons (Logos von Uschi Skin und Loop Lab, Linien-Icons für die Skripte) ---------- */
+const TOOL_ICONS = {"skincare": "<svg aria-hidden=\"true\" viewBox=\"0 0 40 40\"><polygon points=\"29.9,20.0 29.0,20.3 28.1,20.6 27.4,20.8 26.7,20.9 26.2,21.1 25.9,21.3 26.1,21.5 26.4,21.8 26.8,22.2 27.1,22.6 27.6,23.1 28.0,23.6 28.5,24.1 29.0,24.8 29.5,25.5 30.0,26.2 29.8,26.6 28.9,26.4 28.0,26.2 27.2,26.1 26.5,25.9 25.9,25.7 25.3,25.5 24.8,25.3 24.3,25.1 23.9,25.0 23.5,24.9 23.4,25.1 23.5,25.6 23.6,26.2 23.6,26.8 23.7,27.6 23.8,28.5 23.8,29.5 23.8,30.5 23.8,31.7 23.7,33.0 23.6,34.4 23.4,35.8 22.6,34.6 21.9,33.4 21.3,32.2 20.8,31.2 20.4,30.2 20.0,29.3 19.7,28.5 19.5,27.7 19.3,27.1 19.1,26.5 18.9,26.1 18.8,25.8 18.5,26.0 18.2,26.2 17.9,26.5 17.5,26.8 17.1,27.1 16.7,27.5 16.1,27.9 15.6,28.3 15.0,28.7 14.3,29.1 14.0,28.9 14.1,28.1 14.2,27.4 14.4,26.7 14.5,26.1 14.6,25.5 14.8,25.0 14.9,24.6 15.0,24.2 15.1,23.8 15.2,23.5 14.8,23.5 14.2,23.6 13.6,23.7 12.8,23.8 11.9,23.9 10.9,24.0 9.8,24.1 8.6,24.2 7.2,24.2 5.7,24.1 4.1,24.0 2.4,23.7 3.9,22.8 5.3,22.1 6.6,21.4 7.9,20.8 9.0,20.4 10.1,20.0 11.0,19.7 11.9,19.4 12.6,19.2 13.3,19.1 13.8,18.9 14.1,18.7 13.8,18.5 13.5,18.1 13.2,17.8 12.8,17.4 12.3,16.9 11.8,16.4 11.3,15.8 10.8,15.1 10.3,14.4 9.7,13.6 9.9,13.2 10.9,13.4 11.8,13.6 12.6,13.8 13.4,14.0 14.0,14.2 14.6,14.5 15.2,14.6 15.7,14.8 16.1,15.0 16.4,15.1 16.6,14.9 16.5,14.5 16.5,13.9 16.4,13.3 16.4,12.6 16.3,11.8 16.3,10.8 16.3,9.8 16.3,8.7 16.4,7.5 16.6,6.2 16.8,4.9 17.5,6.0 18.2,7.2 18.8,8.2 19.2,9.2 19.7,10.1 20.0,11.0 20.3,11.7 20.5,12.4 20.7,13.0 20.9,13.5 21.1,14.0 21.2,14.2 21.5,14.0 21.8,13.7 22.1,13.4 22.5,13.1 22.9,12.7 23.4,12.3 23.9,11.9 24.5,11.5 25.2,11.0 25.9,10.6 26.2,10.8 26.1,11.6 25.9,12.4 25.8,13.1 25.6,13.8 25.5,14.3 25.3,14.9 25.1,15.4 25.0,15.8 24.9,16.2 24.8,16.5 25.2,16.5 25.8,16.4 26.4,16.3 27.2,16.2 28.1,16.1 29.1,16.0 30.2,15.9 31.4,15.8 32.8,15.8 34.3,15.9 35.9,16.0 37.6,16.3 36.1,17.2 34.7,17.9 33.4,18.6 32.1,19.2 31.0,19.6\" fill=\"#e2673a\"/></svg>", "looplab": "<svg aria-hidden=\"true\" viewBox=\"16 10 68 82\"><defs><clipPath id=\"ICONID\"><circle cx=\"50\" cy=\"62\" r=\"23.5\"/></clipPath></defs><g clip-path=\"url(#ICONID)\"><path d=\"M-22 67 Q-10 61 2 67 T26 67 T50 67 T74 67 T98 67 V100 H-22 Z\" fill=\"#CDF443\"/></g><g fill=\"none\" stroke=\"#151412\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M56 35.67 A27 27 0 1 1 34.51 39.88\"/><path d=\"M32.47 47.42 L34.51 39.88 L26.73 39.22\"/><path d=\"M44 35.67 V21 H40.5 V14 H59.5 V21 H56 V35.67\"/></g></svg>", "ps1": "<svg aria-hidden=\"true\" viewBox=\"0 0 100 100\"><g fill=\"none\" stroke=\"#151412\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"14\" y=\"20\" width=\"72\" height=\"16\" rx=\"3\"/><rect x=\"14\" y=\"42\" width=\"72\" height=\"16\" rx=\"3\"/><rect x=\"14\" y=\"64\" width=\"72\" height=\"16\" rx=\"3\"/><rect x=\"19\" y=\"45\" width=\"10\" height=\"10\" rx=\"1.5\"/><rect x=\"19\" y=\"67\" width=\"10\" height=\"10\" rx=\"1.5\"/><path d=\"M36 72h28\"/><path d=\"M36 50h10\"/><path d=\"M52 44.5v11M49 44.5h6M49 55.5h6\"/><rect x=\"19\" y=\"23\" width=\"10\" height=\"10\" rx=\"1.5\"/><path d=\"M36 28h30\"/></g></svg>", "ps2": "<svg aria-hidden=\"true\" viewBox=\"0 0 100 100\"><g fill=\"none\" stroke=\"#151412\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M60 18H16v62h30\"/><path d=\"M60 18l12 12v20\"/><path d=\"M60 18v12h12\"/><path d=\"M32 38h24M44 38v24\"/><circle cx=\"66\" cy=\"70\" r=\"12\"/><path d=\"M75 79l9 9\"/></g></svg>", "ps3": "<svg aria-hidden=\"true\" viewBox=\"0 0 100 100\"><g fill=\"none\" stroke=\"#151412\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 14v8M14 22h8M62 14v8M70 22h-8M22 70v-8M14 62h8M62 70v-8M70 62h-8\"/><rect x=\"22\" y=\"22\" width=\"40\" height=\"40\"/><path d=\"M50 78h34M74 68l10 10-10 10\"/></g></svg>", "ps4": "<svg aria-hidden=\"true\" viewBox=\"0 0 100 100\"><g fill=\"none\" stroke=\"#151412\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 30v46h62V40H44l-8-10z\"/><path d=\"M80 14v14M73 21h14\"/><path d=\"M86 38v8M82 42h8\"/><path d=\"M30 58l8 8 16-16\"/></g></svg>"};
+let iconSeq = 0;
+function toolIcon(k, cls="ticon"){ const svg = (TOOL_ICONS[k]||"").replace(/ICONID/g, "ll"+(++iconSeq)); return svg ? `<span class="${cls}">${svg}</span>` : ""; }
+
 /* ---------- Startseite ---------- */
 const START = {
   ausschnitte: [
@@ -634,7 +647,7 @@ function viewStart(){
       <div class="shrow"><span class="label" id="s-tool"><b>03/</b> ${esc(TOOLS_NAME)}</span><a class="label more" href="#tools">Alle Tools <i>${blob("pfeil","b-arrow")}</i></a></div>
       <div class="g12 secbody">
         <div class="tl"><p class="intro">Mit KI gebaut, im Alltag benutzt. Abkürzungen für Routinearbeit.</p></div>
-        <ul class="tsum" role="list">${tools.map((t,i)=>`<li><a href="#tools"><span class="label">${pad(i+1)}/</span><b>${esc(t.titel)}</b><span class="ib">${esc(t.tags.map(x=>x[0]).join(" · "))}</span></a></li>`).join("")}</ul>
+        <ul class="tsum" role="list">${tools.map((t,i)=>`<li><a href="#tools"><span class="label">${pad(i+1)}/</span>${toolIcon(t.icon,"ticon sm")}<b>${esc(t.titel)}</b><span class="ib">${esc(t.tags.map(x=>x[0]).join(" · "))}</span></a></li>`).join("")}</ul>
       </div>
     </section>
 
@@ -898,7 +911,7 @@ function viewTools(){
     const datei = t.aktionen.find(a=>a.typ==="datei");
     parts.push(`<article class="trow" id="tool-${t.id}">
       <span class="num label">${pad(n)}/</span>
-      <div class="thead"><h3>${esc(t.titel)}</h3><span class="tagline">${t.tags.map(([l])=>esc(l)).join(" · ")}</span></div>
+      <div class="thead"><div class="tname">${toolIcon(t.icon)}<h3>${esc(t.titel)}</h3></div><span class="tagline">${t.tags.map(([l])=>esc(l)).join(" · ")}</span></div>
       <div class="tbody">
         <p>${esc(t.text)}</p>
         <ul class="facts">${t.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
